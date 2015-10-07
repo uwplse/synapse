@@ -1,4 +1,4 @@
 .PHONY: deploy
 
 deploy:
-	jekyll build --destination $(shell ~/uwplse/getdir)
+	cd www && jekyll build --destination $(shell ~/uwplse/getdir)
