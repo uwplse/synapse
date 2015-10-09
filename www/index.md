@@ -4,4 +4,4 @@ title: Optimizing Synthesis with Metasketches
 
 ## Optimizing Synthesis with Metasketches
 
-TBA
+To appear at POPL 2016.
