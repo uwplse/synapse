@@ -1,15 +1,20 @@
 <!DOCTYPE html>
+<head>
 <title>{{ page.title }}</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/css/writ.css">
 
-<header>
-<h1>{{ page.title }}</h1>
-{% if page.subtitle %}<h2>{{ page.subtitle }}</h2>{% endif %}
-</header>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/typebase.css">
+<link rel="stylesheet" href="/css/custom.css">
+<link rel="stylesheet" href="/css/colorful.css">
+</head>
 
-<main>
+<body>
+<div id="content">
 {{ content }}
-</main>
+</div>
+</body>
+</html>
