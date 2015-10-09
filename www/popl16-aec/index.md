@@ -2,13 +2,13 @@
 title: Optimizing Synthesis with Metasketches
 ---
 
-## Optimizing Synthesis with Metasketches
+# Optimizing Synthesis with Metasketches
 
-### POPL'16 Artifact Evaluation
+## POPL'16 Artifact Evaluation
 
 This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketches*, to appear at POPL 2016.
 
-#### Materials
+### Materials
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
 * [VirtualBox image](synapse.ova) (OVA, 1.95 GB)
@@ -16,7 +16,7 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
   * Username: `synapse`
   * Password: `synapse`
 
-#### Overview
+### Overview
 
 We have provided a [VirtualBox](https://www.virtualbox.org/wiki/Downloads) image containing the implementation of Synapse,
 our framework for optimal synthesis with metasketches.
@@ -35,7 +35,7 @@ That directory is arranged as follows:
 * `run.py`: experiment runner (described below)
 * `test`: tests for Synapse and benchmarks
 
-#### Experiments
+### Experiments
 
 The virtual machine contains everything necessary to reproduce all results in the "Evaluation" section of the paper.
 Because many of these experiments take considerable computing resources to run, we have also provided smaller versions of experiments (where appropriate) that can be run in reasonable time.
@@ -69,7 +69,7 @@ Figure 9 (optimizations) | `python run.py experiments/optimizations.json`
 
 Each of these experiments will produce output files in the `data` folder with the same name as the experiment.
 
-#### Caching
+### Caching
 
 The above commands return quickly because they are not doing any actual work.
 Because the experiments take considerable time,
@@ -95,19 +95,26 @@ Figure 7 (parallel speedup) | `python run.py -n 8 experiments/parallel-speedup.j
 Figure 8 (search progress) | `python run.py -f experiments/search-progress.json` | 15 minutes
 Figure 9 (optimizations) | `python run.py -f experiments/optimizations.json` | 48 hours
 
-#### Parallel Resources
+### Parallel Resources
 
 Running the experiments above can be greatly accelerated by using parallelism.
 The `-n` flag to `run.py` controls the number of cores it can use.
 For example, running this command:
 
 ```bash
-python run.py -f experiments/all-benchmarks.json
+python run.py -f -n 2 experiments/all-benchmarks.json
 ```
 
-#### Experiment Size
+will schedule the jobs for this experiment across two cores,
+so the experiment will complete in about half the time.
+Note that the `parallel-speedup` experiment requires at least 8 cores
+because it will be using up to 8 threads for a single job.
 
-The experiments are quite
+### Smaller Experiments
+
+TODO
+
+
 
 
 
