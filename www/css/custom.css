@@ -10,6 +10,11 @@ h6 {
 
 code, pre {
     font-family: "Inconsolata", monospace;
+    background: #fafafa;
+}
+
+p code {
+    font-size: 90%;
 }
 
 pre {
@@ -20,15 +25,15 @@ pre {
 }
 
 h1 {
-    font-size: 3.181rem;
-    line-height: 3.375rem;
-    margin-top: 3.375rem;
+    font-size: 2.389rem;
+    line-height: 2.536rem;
+    margin-top: 2.536rem;
 }
 
 h2 {
-    font-size: 2.121rem;
-    line-height: 2.252rem;
-    margin-top: 2.252rem;
+    font-size: 1.838rem;
+    line-height: 1.951rem;
+    margin-top: 1.951rem;
 }
 
 #content {

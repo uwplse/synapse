@@ -12,7 +12,7 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
 * [VirtualBox image](synapse.ova) (OVA, 1.95 GB)
-  * MD5:`dc29603ab091fd0b9839373be2277b48`
+  * MD5: `dc29603ab091fd0b9839373be2277b48`
   * Username: `synapse`
   * Password: `synapse`
 
@@ -37,32 +37,85 @@ That directory is arranged as follows:
 
 ### Getting Started
 
-Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), and import the VirtualBox image (open VirtualBox, then File > Import Appliance).
+Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
+Import the VirtualBox image (open VirtualBox, then File > Import Appliance).
 Boot the resulting virtual machine.
 You will be automatically logged in as the `synapse` user.
 Open a terminal (there is a desktop shortcut to LXTerminal).
 
-### Experiments
+### Running an Experiment
+
+The `~/opsyn` directory contains a script `run.py` to run experiments.
+Experiments are defined in JSON files in the `experiments` directory.
+An *experiment* is a collection of *jobs*,
+where each job is a single invocation of Synapse (i.e., on a single benchmark with a single configuration).
+
+To run a basic test experiment, execute this command from the `~/opsyn` folder:
+
+```
+python run.py -f -n 2 experiments/test.json
+```
+
+(The `-f` flag overrides the cache, [explained below](#cache),
+and the `-n 2` flag controls the maximum number of parallel cores used).
+This should take approximately 20 seconds, and produce output similar to the following:
+
+```
+compiling benchmark runner...
+starting: /home/synapse/opsyn/benchmarks/run -t 900 -n 2 -u -v -w (hd-d0 1)
+  --> /tmp/tmpX2QpSC
+  [4 jobs: 0 complete, 1 running, 3 remaining]
+finished: /home/synapse/opsyn/benchmarks/run -t 900 -n 2 -u -v -w (hd-d0 1)
+  [4 jobs: 1 complete, 0 running, 3 remaining]
+starting: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 1)
+  --> /tmp/mpocrjp1
+  [4 jobs: 1 complete, 2 running, 1 remaining]
+starting: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 2)
+  --> /tmp/mpWrCYJ8
+  [4 jobs: 1 complete, 2 running, 1 remaining]
+finished: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 1)
+  [4 jobs: 2 complete, 1 running, 1 remaining]
+finished: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 2)
+  [4 jobs: 3 complete, 1 running, 0 remaining]
+starting: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 3)
+  --> /tmp/mpShesLL
+  [4 jobs: 3 complete, 1 running, 0 remaining]
+finished: /home/synapse/opsyn/benchmarks/run -t 900 -n 1 -u -v -w (hd-d0 3)
+  [4 jobs: 4 complete, 0 running, 0 remaining]
+```
+
+The exact order of the output and the temporary files names may differ.
+This output says that four *jobs* were run
+(i.e., Synapse was invoked four times).
+When a job starts, the experiment runner outputs the name of a temporary file to which that job's output is being redirected.
+
+Running this command also produces two **output files** in the `data` directory:
+
+* `test.csv` is a summary of the results of each job in the experiment
+* `test.out.txt` contains the complete output of each job in the experiment
+
+### Paper Experiments
 
 The virtual machine contains everything necessary to reproduce all results in the "Evaluation" section of the paper.
 Because many of these experiments take considerable computing resources to run, we have also provided smaller versions of experiments (where appropriate) that can be run in reasonable time.
 
-To run an experiment, execute the command:
+To run an experiment corresponding to Figure 6 in the paper,
+execute the command:
 
 ```bash
 python run.py experiments/all-benchmarks.json
 ```
 
-The output of this command reports on which *jobs* have been run
-(a job is a single invocation of Synapse)
-and whether they came from the *cache* (see below)
-or were run from scratch.
+Just as with the test experiment, 
+this command produces two output files `all-benchmarks.csv` and `all-benchmarks.out.txt`.
+However, this experiment also **produces a graph** `all-benchmarks.pdf`.
+Open this graph with the command:
 
-This command also produces three **output files** in the `data` folder:
+```bash
+evince data/all-benchmarks.pdf &
+```
 
-* `all-benchmarks.csv` contains a summary of the experiment
-* `all-benchmarks.out.txt` contains the standard output of each job in the experiment
-* `all-benchmarks.pdf` is a graph of the experiment results
+The results will be similar to Figure 6 in the paper.
 
 Each figure in the paper corresponds to an experiment,
 and the figures can be re-drawn by running the appropriate experiment:
@@ -78,7 +131,7 @@ Each of these experiments will produce output files in the `data` folder with th
 
 ### Caching
 
-The above commands return quickly because they are not doing any actual work.
+The above experiments complete quickly because they are not doing any actual work.
 Because the experiments take considerable time,
 and many jobs within an experiment are reused across experiments,
 the experiment runner *caches* results of each job to be reused.
@@ -97,9 +150,9 @@ The rough time required to run the experiments from scratch is as follows:
 
 Figure | Command | Time
 -------|---------|-----
-Figure 6 (sequential performance) | `python run.py -f experiments/all-benchmarks.json` | 12 hours
+Figure 6 (sequential performance) | `python run.py -f experiments/all-benchmarks.json` | 12&nbsp;hours
 Figure 7 (parallel speedup) | `python run.py -n 8 experiments/parallel-speedup.json` | 24 hours
-Figure 8 (search progress) | `python run.py -f experiments/search-progress.json` | 15 minutes
+Figure 8 (search progress) | `python run.py -f experiments/search-progress.json` | 15 mins
 Figure 9 (optimizations) | `python run.py -f experiments/optimizations.json` | 48 hours
 
 ### Parallel Resources
@@ -108,7 +161,7 @@ Running the experiments above can be greatly accelerated by using parallelism.
 The `-n` flag to `run.py` controls the number of cores it can use.
 For example, running this command:
 
-```bash
+```
 python run.py -f -n 2 experiments/all-benchmarks.json
 ```
 
@@ -116,12 +169,14 @@ will schedule the jobs for this experiment across two cores,
 so the experiment will complete in about half the time.
 Note that the `parallel-speedup` experiment requires at least 8 cores
 because it will be using up to 8 threads for a single job.
+Also note that by default, 
+the virtual machine is configured to use two of the host machine's cores,
+so setting `-n` higher than two will not improve actual parallelism.
 
 ### Smaller Experiments
 
 TODO
 
+### Running on EC2
 
-
-
-
+TODO
