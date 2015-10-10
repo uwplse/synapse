@@ -12,7 +12,7 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
 * [VirtualBox image](synapse.ova) (OVA, 1.95 GB)
-  * MD5: XXXXXXXX
+  * MD5:`dc29603ab091fd0b9839373be2277b48`
   * Username: `synapse`
   * Password: `synapse`
 
@@ -34,6 +34,13 @@ That directory is arranged as follows:
 * `opsyn`: core implementation of Synapse
 * `run.py`: experiment runner (described below)
 * `test`: tests for Synapse and benchmarks
+
+### Getting Started
+
+Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads), and import the VirtualBox image (open VirtualBox, then File > Import Appliance).
+Boot the resulting virtual machine.
+You will be automatically logged in as the `synapse` user.
+Open a terminal (there is a desktop shortcut to LXTerminal).
 
 ### Experiments
 
