@@ -125,7 +125,7 @@ and we have also provided [smaller versions](#smaller-experiments) of experiment
 To run an experiment corresponding to Figure 6 in the paper,
 execute the command:
 
-```bash
+```
 python run.py experiments/all-benchmarks.json
 ```
 
@@ -135,7 +135,7 @@ this command produces two output files in the `data` directory:
 This experiment also **produces a graph** `all-benchmarks.pdf`.
 Open this graph with the command:
 
-```bash
+```
 evince data/all-benchmarks.pdf &
 ```
 
@@ -164,7 +164,7 @@ We have pre-seeded the cache with results for every job necessary to reproduce t
 To ignore the cache, pass the `-f` flag to `run.py`.
 For example:
 
-```bash
+```
 python run.py -f experiments/all-benchmarks.json
 ```
 
