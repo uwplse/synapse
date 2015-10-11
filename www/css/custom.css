@@ -42,3 +42,7 @@ h2 {
     margin-right: auto;
     padding: 1em 2em;
 }
+
+table td, table th {
+    padding: 0 0.2em;
+}
