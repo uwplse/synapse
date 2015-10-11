@@ -235,6 +235,7 @@ Demonstration | Command
 --------------|--------
 Least-squares regression | `racket benchmarks/demos/least-squares.rkt`
 Worst-case execution time | `racket benchmarks/demos/wcet.rkt`
+Neural network (not in paper) | `racket benchmarks/demos/neural.rkt`
 
 These scripts also accept a `-v` flag to turn on Synapse's verbose output 
 (equivalent to the `.out.txt` files from experiments above).
