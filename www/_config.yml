@@ -1,6 +1,7 @@
-markdown: redcarpet
-redcarpet:
-  extensions: ["fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
 
 defaults:
   -

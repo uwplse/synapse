@@ -35,6 +35,10 @@ h2 {
     line-height: 1.951rem;
     margin-top: 1.951rem;
 }
+h4 {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+}
 
 #content {
     max-width: 768px;

@@ -3,10 +3,16 @@ title: Optimizing Synthesis with Metasketches
 ---
 
 # Optimizing Synthesis with Metasketches
+{:.no_toc}
 
-## POPL'16 Artifact Evaluation
 
 This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketches*, to appear at POPL 2016.
+
+### Contents 
+{:.no_toc}
+
+* Contents
+{:toc}
 
 ### Materials
 
@@ -15,21 +21,6 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
   * MD5: `dc29603ab091fd0b9839373be2277b48`
   * Username: `synapse`
   * Password: `synapse`
-
-### Claims
-
-The artifact addresses all the research questions in the "Evaluation" section of the paper:
-
-1. Is Synapse a practical approach to solving different kinds of synthesis problems?
-	* [Figure 6 experiment](#paper-experiments)
-2. Does the fragmentatation of the search space by a metasketch translate into parallel speedup?
-	* [Figure 7 experiment](#paper-experiments)
-3. Is online completeness empirically useful?
-	* [Figure 8 experiment](#paper-experiments)
-4. How beneficial are our metasketch and implementation optimizations?
-	* [Figure 9 experiment](#paper-experiments)
-5. Can Synapse reason about dynamic cost functions?
-   * [Demonstrations](#demonstrations)
 
 ### Overview
 
@@ -50,7 +41,22 @@ That directory is arranged as follows:
 * `run.py`: experiment runner (described below)
 * `test`: tests for Synapse and benchmarks
 
-### Getting Started
+#### Claims
+
+The artifact addresses all the research questions in the "Evaluation" section of the paper:
+
+1. Is Synapse a practical approach to solving different kinds of synthesis problems?
+	* [Figure 6 experiment](#paper-experiments)
+2. Does the fragmentatation of the search space by a metasketch translate into parallel speedup?
+	* [Figure 7 experiment](#paper-experiments)
+3. Is online completeness empirically useful?
+	* [Figure 8 experiment](#paper-experiments)
+4. How beneficial are our metasketch and implementation optimizations?
+	* [Figure 9 experiment](#paper-experiments)
+5. Can Synapse reason about dynamic cost functions?
+   * [Demonstrations](#demonstrations)
+
+#### Getting Started
 
 Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
 Import the VirtualBox image (open VirtualBox, then File > Import Appliance).
@@ -147,7 +153,7 @@ Figure 9 (optimizations) | `python run.py experiments/optimizations.json`
 
 Each of these experiments will produce output files—including a PDF graph—in the `data` folder, with the same name as the experiment.
 
-### Caching
+#### Caching
 
 The above experiments complete quickly because they are not doing any actual work.
 Because the experiments take considerable time,
@@ -173,7 +179,7 @@ Figure 7 (parallel speedup) | `python run.py -n 8 experiments/parallel-speedup.j
 Figure 8 (search progress) | `python run.py -f experiments/search-progress.json` | 15 mins
 Figure 9 (optimizations) | `python run.py -f experiments/optimizations.json` | 48 hours
 
-### Parallel Resources
+#### Parallel Resources
 
 Running the experiments above can be greatly accelerated by using parallelism.
 The `-n` flag to `run.py` controls the number of cores it can use.
@@ -233,7 +239,24 @@ Worst-case execution time | `racket benchmarks/demos/wcet.rkt`
 These scripts also accept a `-v` flag to turn on Synapse's verbose output 
 (equivalent to the `.out.txt` files from experiments above).
 
-### Running on EC2 with Docker
+### Additional Resources
+
+#### Running Synapse Manually
+
+You can also run benchmarks individually, without going through the experiment runner.
+The executable to do so is `benchmarks/run`
+(which is a compiled version of the Racket program `benchmarks/run.rkt`).
+To see the available options, run:
+
+```
+benchmarks/run -h
+```
+
+There are many command-line options to the benchmark runner.
+To get an idea of which to use, consult the output of an experiment (an `.out.txt` file),
+which contains the command used to run each benchmark.
+
+#### Running on EC2 with Docker
 
 To help reproduce the experiments at their full scale,
 we are also providing a [Docker](http://www.docker.com) image that can be run on [Amazon EC2](https://aws.amazon.com/ec2/) (or some other machine).
