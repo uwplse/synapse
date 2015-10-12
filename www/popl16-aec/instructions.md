@@ -17,10 +17,10 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 ### Materials
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
-* [VirtualBox image](synapse.ova) (OVA, 1.95 GB)
-  * MD5: `dc29603ab091fd0b9839373be2277b48`
+* [VirtualBox image](synapse.ova) (OVA, 1.9 GB)
+  * MD5: `3b7cfc756dab8ea45029e0f167c6b46f`
   * Username: `synapse`
-  * Password: `synapse`
+  * Password: `synapse` (has passwordless sudo access)
 
 ### Overview
 
@@ -30,16 +30,6 @@ The image also contains the benchmarks used in our evalation,
 and a test suite for Synapse. 
 
 Both Synapse and the benchmarks are implemented in [Rosette](http://homes.cs.washington.edu/~emina/rosette/), an extension of [Racket](http://racket-lang.org/), and both languages are installed in the virtual machine.
-
-All source code resides in the `~/opsyn` directory of the `synapse` user.
-That directory is arranged as follows:
-
-* `benchmarks`: implementations of benchmarks used in the paper
-* `data`: outputs from experiments (described below)
-* `experiments`: specifications of experiments in the paper (described below)
-* `opsyn`: core implementation of Synapse
-* `run.py`: experiment runner (described below)
-* `test`: tests for Synapse and benchmarks
 
 #### Claims
 
@@ -58,7 +48,7 @@ The artifact addresses all the research questions in the "Evaluation" section of
 
 #### Getting Started
 
-Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
+Install [VirtualBox 5.0.6](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
 Import the VirtualBox image (open VirtualBox, then File > Import Appliance).
 Boot the resulting virtual machine.
 It will log in be automatically as the `synapse` user.
@@ -216,7 +206,8 @@ Figure 9 (optimizations) | `python run.py -f experiments/small/optimizations.jso
 **Because the larger benchmarks are excluded,
 the aggregate results for Figures 7 and 9 will not be a fair representation of the results.**
 
-Note that the `parallel-speedup` experiment still requires at least 8 cores.
+Note that the `parallel-speedup` experiment still requires at least 8 cores—the experiment will not run with less than 8 cores,
+and so cannot be run on the virtual machine unless its settings are changed.
 We have also supplied a special small version of `parallel-speedup` that will run on the two cores the virtual machine is configured with:
 
 ```
@@ -290,3 +281,20 @@ This command completes in about 7 hours.
 The `docker run` command above mounted the EC2 user's home directory at `/host/home` in the Docker container,
 so to download data files from the experiment,
 copy them into that directory from inside the Docker container, and then `scp` them from the EC2 instance.
+
+### Source Code
+
+All source code resides in the `~/opsyn` directory of the `synapse` user.
+The source is arranged as follows:
+
+* `benchmarks`: implementations of benchmarks used in the paper
+* `opsyn`: core implementation of Synapse
+* `test`: tests for Synapse and benchmarks
+
+The core implementation of Synapse consists of:
+
+* The global search implementation `opsyn/engine/search.rkt`
+* The local search implementation `opsyn/engine/search-place.rkt`
+* The incremental CEGIS implementation `opsyn/engine/solver+.rkt`
+
+Metasketch implementations are in the `opsyn/metasketches` directory.
