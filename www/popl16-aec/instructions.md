@@ -17,7 +17,7 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 ### Materials
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
-* [VirtualBox image](synapse.ova) (OVA, 1.9 GB)
+* [VirtualBox image](synapse.ova?md5=3b7cfc756dab8ea45029e0f167c6b46f) (OVA, 1.9 GB)
   * MD5: `3b7cfc756dab8ea45029e0f167c6b46f`
   * Username: `synapse`
   * Password: `synapse` (has passwordless sudo access)
