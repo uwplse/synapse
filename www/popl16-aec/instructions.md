@@ -17,8 +17,8 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 ### Materials
 
 * [Accepted paper](paper.pdf) (PDF, 403 kB)
-* [VirtualBox image](synapse.ova?md5=3b7cfc756dab8ea45029e0f167c6b46f) (OVA, 1.9 GB)
-  * MD5: `3b7cfc756dab8ea45029e0f167c6b46f`
+* [VirtualBox image](synapse.ova?md5=f3d1f2b9d05a60440955130cfbda0259) (OVA, 1.9 GB)
+  * MD5: `f3d1f2b9d05a60440955130cfbda0259`
   * Username: `synapse`
   * Password: `synapse` (has passwordless sudo access)
 
@@ -51,8 +51,9 @@ The artifact addresses all the research questions in the "Evaluation" section of
 Install [VirtualBox 5.0.6](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
 Import the VirtualBox image (open VirtualBox, then File > Import Appliance).
 Boot the resulting virtual machine.
-It will log in be automatically as the `synapse` user.
-Open a terminal (there is a desktop shortcut to LXTerminal).
+It will log in be automatically as the `synapse` user,
+and open a terminal in the `~/opsyn` directory.
+There is also a desktop shortcut to re-open this terminal.
 
 ### Running an Experiment
 
@@ -61,7 +62,7 @@ Experiments are defined in JSON files in the `experiments` directory.
 An *experiment* is a collection of *jobs*,
 where each job is a single invocation of Synapse (i.e., on a single benchmark with a single configuration).
 
-To run a basic test experiment, execute this command from the `~/opsyn` folder:
+To run a basic test experiment, execute this command:
 
 ```
 python run.py -f -n 2 experiments/test.json
@@ -69,7 +70,7 @@ python run.py -f -n 2 experiments/test.json
 
 (The `-f` flag overrides the cache, [explained below](#cache),
 and the `-n 2` flag controls the maximum number of parallel cores used).
-This should take approximately 20 seconds, and produce output similar to the following:
+This should take approximately 1 minute, and produce output similar to the following:
 
 ```
 compiling benchmark runner...
@@ -119,17 +120,12 @@ execute the command:
 python run.py experiments/all-benchmarks.json
 ```
 
+When this command finishes,
+it will open a graph with results similar to the paper's Figure 6.
 Just as with the test experiment, 
-this command produces two output files in the `data` directory:
+this command also produces two output files in the `data` directory:
 `all-benchmarks.csv` and `all-benchmarks.out.txt`.
-This experiment also **produces a graph** `all-benchmarks.pdf`.
-Open this graph with the command:
-
-```
-evince data/all-benchmarks.pdf &
-```
-
-The results will be similar to Figure 6 in the paper.
+The produced graph is also in the `data` directory as `all-benchmarks.pdf`.
 
 Each figure in the paper corresponds to an experiment,
 and the experiments can be run (and so their corresponding figures redrawn) by running the appropriate command:
