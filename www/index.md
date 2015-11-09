@@ -16,7 +16,7 @@ title: Optimizing Synthesis with Metasketches
 [POPL 2016](http://conf.researchr.org/home/POPL-2016)
 </p>
 
-* [Paper](/synapse-popl16.pdf) (PDF, 333 kB)
+[Paper](/synapse-popl16.pdf) (PDF, 333 kB)
 
 Many advanced programming tools---for both end-users and expert
 developers---rely on program synthesis to automatically generate implementations
