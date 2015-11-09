@@ -2,13 +2,23 @@
 title: Optimizing Synthesis with Metasketches
 ---
 
+<img class="aec" src="/img/popl-aec.png" />
+
 # Optimizing Synthesis with Metasketches
 {:.no_toc}
 
+<p class="authors" markdown="1">
+[James Bornholt](http://homes.cs.washington.edu/~bornholt/), 
+[Emina Torlak](http://homes.cs.washington.edu/~emina/),
+[Dan Grossman](http://homes.cs.washington.edu/~djg/), 
+[Luis Ceze](http://homes.cs.washington.edu/~luisceze/)
+<br>
+[POPL 2016](http://conf.researchr.org/home/POPL-2016)
+</p>
 
-This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketches*, to appear at POPL 2016.
+This page hosts the accepted artifact for our POPL 2016 paper, *Optimizing Synthesis with Metasketches*.
 
-### Contents 
+## Contents 
 {:.no_toc}
 
 * Contents
@@ -16,7 +26,7 @@ This page hosts the artifact for our paper, *Optimizing Synthesis with Metasketc
 
 ### Materials
 
-* [Accepted paper](paper.pdf) (PDF, 403 kB)
+* [Paper](paper.pdf) (PDF, 333 kB)
 * [VirtualBox image](synapse.ova?md5=f3d1f2b9d05a60440955130cfbda0259) (OVA, 1.9 GB)
   * MD5: `f3d1f2b9d05a60440955130cfbda0259`
   * Username: `synapse`

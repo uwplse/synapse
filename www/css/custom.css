@@ -8,6 +8,13 @@ h6 {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+p, ol, ul {
+    margin-top: 1rem;
+}
+ol, ul {
+    margin-bottom: 1rem;
+}
+
 code, pre {
     font-family: "Inconsolata", monospace;
     background: #fafafa;
@@ -25,15 +32,18 @@ pre {
 }
 
 h1 {
-    font-size: 2.389rem;
-    line-height: 2.536rem;
-    margin-top: 2.536rem;
-}
-
-h2 {
     font-size: 1.838rem;
     line-height: 1.951rem;
     margin-top: 1.951rem;
+}
+h2 {
+    font-size: 1.414rem;
+    line-height: 1.414rem;
+    margin-top: 1.414rem;
+}
+h3 {
+    font-size: 1.25rem;
+    line-height: 1.25rem;
 }
 h4 {
     font-size: 1.1rem;
@@ -44,9 +54,22 @@ h4 {
     max-width: 768px;
     margin-left: auto;
     margin-right: auto;
-    padding: 1em 2em;
+    margin: 1em auto;
 }
 
 table td, table th {
     padding: 0 0.2em;
+}
+
+p.authors {
+    margin-top: 0;
+}
+
+p.authors a {
+    text-decoration: none;
+}
+
+img.aec {
+    float: right;
+    max-height: 100px;
 }
