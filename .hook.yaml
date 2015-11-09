@@ -1,0 +1,1 @@
+deploy: cd www && make deploy
