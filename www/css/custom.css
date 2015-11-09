@@ -8,6 +8,10 @@ h6 {
     font-family: "Source Sans Pro", sans-serif;
 }
 
+body {
+    margin: 1em;
+}
+
 p, ol, ul {
     margin-top: 1rem;
 }
