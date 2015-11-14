@@ -16,7 +16,7 @@ title: Optimizing Synthesis with Metasketches
 [POPL 2016](http://conf.researchr.org/home/POPL-2016)
 </p>
 
-This page hosts the accepted artifact for our POPL 2016 paper, *Optimizing Synthesis with Metasketches*.
+This page hosts the accepted artifact for our POPL 2016 paper, [*Optimizing Synthesis with Metasketches*](http://synapse.uwplse.org/).
 
 ## Contents 
 {:.no_toc}
