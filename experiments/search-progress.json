@@ -1,0 +1,6 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true,
+                  "threads": 8, "timeout": 86400, "error": 1, "order": "sum"},
+    "benchmarks": ["(sobel-y)"],
+    "plot": "search-progress.py"
+}

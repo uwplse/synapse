@@ -1,0 +1,24 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true},
+    "configurations": [
+        {
+            "arguments": {"timeout": 3600},
+            "benchmarks": ["(hd-d0 1)", "(hd-d0 2)", "(hd-d0 3)", "(hd-d0 4)",
+                           "(hd-d0 5)", "(hd-d0 6)", "(hd-d0 7)", "(hd-d0 8)",
+                           "(hd-d0 9)", "(hd-d0 10)",
+                           "(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)",
+                           "(hd-d5 5)", "(hd-d5 6)", "(hd-d5 7)", "(hd-d5 8)",
+                           "(hd-d5 9)", "(hd-d5 10)"]
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum"},
+            "benchmarks": ["(array-search 2)", "(array-search 3)", 
+                           "(array-search 4)", "(array-search 5)"]
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"]
+        }
+    ],
+    "plot": "all-benchmarks.py"
+}

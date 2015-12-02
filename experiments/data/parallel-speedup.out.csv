@@ -1,0 +1,297 @@
+"benchmark","group","threads","time","timeout"
+"(hd-d0 1)","hd-d0","1",8.955,False
+"(hd-d0 2)","hd-d0","1",8.942,False
+"(hd-d0 3)","hd-d0","1",6.554,False
+"(hd-d0 4)","hd-d0","1",8.028,False
+"(hd-d0 5)","hd-d0","1",8.096,False
+"(hd-d0 6)","hd-d0","1",9.651,False
+"(hd-d0 7)","hd-d0","1",12.212,False
+"(hd-d0 8)","hd-d0","1",12.293,False
+"(hd-d0 9)","hd-d0","1",9.816,False
+"(hd-d0 10)","hd-d0","1",10.270,False
+"(hd-d0 11)","hd-d0","1",9.510,False
+"(hd-d0 12)","hd-d0","1",9.306,False
+"(hd-d0 13)","hd-d0","1",18.694,False
+"(hd-d0 14)","hd-d0","1",16.547,False
+"(hd-d0 15)","hd-d0","1",15.391,False
+"(hd-d0 16)","hd-d0","1",16.869,False
+"(hd-d0 17)","hd-d0","1",11.598,False
+"(hd-d0 18)","hd-d0","1",17.827,False
+"(hd-d0 19)","hd-d0","1",25.777,False
+"(hd-d0 20)","hd-d0","1",1297.069,False
+"(hd-d5 1)","hd-d5","1",11.453,False
+"(hd-d5 2)","hd-d5","1",12.359,False
+"(hd-d5 3)","hd-d5","1",6.461,False
+"(hd-d5 4)","hd-d5","1",9.965,False
+"(hd-d5 5)","hd-d5","1",10.014,False
+"(hd-d5 6)","hd-d5","1",11.268,False
+"(hd-d5 7)","hd-d5","1",10.061,False
+"(hd-d5 8)","hd-d5","1",12.118,False
+"(hd-d5 9)","hd-d5","1",10.626,False
+"(hd-d5 10)","hd-d5","1",16.507,False
+"(hd-d5 11)","hd-d5","1",17.648,False
+"(hd-d5 12)","hd-d5","1",15.864,False
+"(hd-d5 13)","hd-d5","1",17.870,False
+"(hd-d5 14)","hd-d5","1",1250.055,False
+"(hd-d5 15)","hd-d5","1",856.564,False
+"(hd-d5 16)","hd-d5","1",44.299,False
+"(hd-d5 17)","hd-d5","1",24.145,False
+"(hd-d5 18)","hd-d5","1",11.586,False
+"(hd-d5 19)","hd-d5","1",3600.000,True
+"(hd-d5 20)","hd-d5","1",3600.000,True
+"(array-search 2)","arraysearch","1",9.358,False
+"(array-search 3)","arraysearch","1",9.734,False
+"(array-search 4)","arraysearch","1",17.484,False
+"(array-search 5)","arraysearch","1",18.594,False
+"(array-search 6)","arraysearch","1",22.396,False
+"(array-search 7)","arraysearch","1",24.141,False
+"(array-search 8)","arraysearch","1",99.939,False
+"(array-search 9)","arraysearch","1",227.638,False
+"(array-search 10)","arraysearch","1",183.807,False
+"(array-search 11)","arraysearch","1",339.306,False
+"(array-search 12)","arraysearch","1",280.116,False
+"(array-search 13)","arraysearch","1",290.553,False
+"(array-search 14)","arraysearch","1",229.654,False
+"(array-search 15)","arraysearch","1",594.568,False
+"(qm qm_choose_01)","qm","1",7.035,False
+"(qm qm_choose_yz)","qm","1",209.952,False
+"(qm qm_loop_1)","qm","1",7.121,False
+"(qm qm_loop_2)","qm","1",8.791,False
+"(qm qm_loop_3)","qm","1",9.110,False
+"(qm qm_max2)","qm","1",67.232,False
+"(qm qm_max3)","qm","1",3600.000,True
+"(qm qm_neg_1)","qm","1",5.972,False
+"(qm qm_neg_2)","qm","1",7.888,False
+"(qm qm_neg_3)","qm","1",8.235,False
+"(qm qm_neg_4)","qm","1",70.358,False
+"(qm qm_neg_eq_1)","qm","1",6.975,False
+"(qm qm_neg_eq_2)","qm","1",35.104,False
+"(fft-sin)","parrot","1",10.493,False
+"(fft-cos)","parrot","1",10.985,False
+"(inversek2j-theta1)","parrot","1",61.948,False
+"(inversek2j-theta2)","parrot","1",24.774,False
+"(sobel-x)","parrot","1",7677.887,False
+"(sobel-y)","parrot","1",7038.087,False
+"(kmeans)","parrot","1",14203.590,False
+"(hd-d0 1)","hd-d0","2",6.164,False
+"(hd-d0 2)","hd-d0","2",5.820,False
+"(hd-d0 3)","hd-d0","2",4.047,False
+"(hd-d0 4)","hd-d0","2",4.647,False
+"(hd-d0 5)","hd-d0","2",4.548,False
+"(hd-d0 6)","hd-d0","2",6.104,False
+"(hd-d0 7)","hd-d0","2",7.273,False
+"(hd-d0 8)","hd-d0","2",6.819,False
+"(hd-d0 9)","hd-d0","2",6.265,False
+"(hd-d0 10)","hd-d0","2",6.778,False
+"(hd-d0 11)","hd-d0","2",6.569,False
+"(hd-d0 12)","hd-d0","2",6.380,False
+"(hd-d0 13)","hd-d0","2",12.077,False
+"(hd-d0 14)","hd-d0","2",9.458,False
+"(hd-d0 15)","hd-d0","2",9.577,False
+"(hd-d0 16)","hd-d0","2",10.480,False
+"(hd-d0 17)","hd-d0","2",6.870,False
+"(hd-d0 18)","hd-d0","2",10.438,False
+"(hd-d0 19)","hd-d0","2",21.110,False
+"(hd-d0 20)","hd-d0","2",3600.000,True
+"(hd-d5 1)","hd-d5","2",8.100,False
+"(hd-d5 2)","hd-d5","2",7.798,False
+"(hd-d5 3)","hd-d5","2",4.648,False
+"(hd-d5 4)","hd-d5","2",8.242,False
+"(hd-d5 5)","hd-d5","2",7.634,False
+"(hd-d5 6)","hd-d5","2",7.848,False
+"(hd-d5 7)","hd-d5","2",8.103,False
+"(hd-d5 8)","hd-d5","2",7.792,False
+"(hd-d5 9)","hd-d5","2",8.201,False
+"(hd-d5 10)","hd-d5","2",10.569,False
+"(hd-d5 11)","hd-d5","2",10.506,False
+"(hd-d5 12)","hd-d5","2",9.819,False
+"(hd-d5 13)","hd-d5","2",19.158,False
+"(hd-d5 14)","hd-d5","2",723.527,False
+"(hd-d5 15)","hd-d5","2",738.935,False
+"(hd-d5 16)","hd-d5","2",27.754,False
+"(hd-d5 17)","hd-d5","2",16.395,False
+"(hd-d5 18)","hd-d5","2",7.721,False
+"(hd-d5 19)","hd-d5","2",3600.000,True
+"(hd-d5 20)","hd-d5","2",3600.000,True
+"(array-search 2)","arraysearch","2",6.880,False
+"(array-search 3)","arraysearch","2",6.929,False
+"(array-search 4)","arraysearch","2",11.858,False
+"(array-search 5)","arraysearch","2",13.538,False
+"(array-search 6)","arraysearch","2",17.801,False
+"(array-search 7)","arraysearch","2",18.269,False
+"(array-search 8)","arraysearch","2",66.237,False
+"(array-search 9)","arraysearch","2",203.937,False
+"(array-search 10)","arraysearch","2",132.852,False
+"(array-search 11)","arraysearch","2",257.375,False
+"(array-search 12)","arraysearch","2",209.362,False
+"(array-search 13)","arraysearch","2",235.005,False
+"(array-search 14)","arraysearch","2",164.453,False
+"(array-search 15)","arraysearch","2",534.678,False
+"(qm qm_choose_01)","qm","2",4.954,False
+"(qm qm_choose_yz)","qm","2",189.127,False
+"(qm qm_loop_1)","qm","2",5.106,False
+"(qm qm_loop_2)","qm","2",7.541,False
+"(qm qm_loop_3)","qm","2",7.488,False
+"(qm qm_max2)","qm","2",163.837,False
+"(qm qm_max3)","qm","2",3600.000,True
+"(qm qm_neg_1)","qm","2",4.596,False
+"(qm qm_neg_2)","qm","2",4.901,False
+"(qm qm_neg_3)","qm","2",5.609,False
+"(qm qm_neg_4)","qm","2",76.103,False
+"(qm qm_neg_eq_1)","qm","2",4.948,False
+"(qm qm_neg_eq_2)","qm","2",54.677,False
+"(fft-sin)","parrot","2",6.822,False
+"(fft-cos)","parrot","2",6.572,False
+"(inversek2j-theta1)","parrot","2",26.152,False
+"(inversek2j-theta2)","parrot","2",14.464,False
+"(sobel-x)","parrot","2",4086.758,False
+"(sobel-y)","parrot","2",3939.052,False
+"(kmeans)","parrot","2",6882.044,False
+"(hd-d0 1)","hd-d0","4",4.843,False
+"(hd-d0 2)","hd-d0","4",4.243,False
+"(hd-d0 3)","hd-d0","4",4.136,False
+"(hd-d0 4)","hd-d0","4",4.584,False
+"(hd-d0 5)","hd-d0","4",4.147,False
+"(hd-d0 6)","hd-d0","4",4.997,False
+"(hd-d0 7)","hd-d0","4",4.750,False
+"(hd-d0 8)","hd-d0","4",6.803,False
+"(hd-d0 9)","hd-d0","4",4.647,False
+"(hd-d0 10)","hd-d0","4",5.397,False
+"(hd-d0 11)","hd-d0","4",4.645,False
+"(hd-d0 12)","hd-d0","4",4.639,False
+"(hd-d0 13)","hd-d0","4",8.371,False
+"(hd-d0 14)","hd-d0","4",7.633,False
+"(hd-d0 15)","hd-d0","4",10.135,False
+"(hd-d0 16)","hd-d0","4",7.647,False
+"(hd-d0 17)","hd-d0","4",6.048,False
+"(hd-d0 18)","hd-d0","4",7.645,False
+"(hd-d0 19)","hd-d0","4",17.898,False
+"(hd-d0 20)","hd-d0","4",3600.000,True
+"(hd-d5 1)","hd-d5","4",8.110,False
+"(hd-d5 2)","hd-d5","4",6.298,False
+"(hd-d5 3)","hd-d5","4",7.152,False
+"(hd-d5 4)","hd-d5","4",7.599,False
+"(hd-d5 5)","hd-d5","4",5.839,False
+"(hd-d5 6)","hd-d5","4",6.101,False
+"(hd-d5 7)","hd-d5","4",6.498,False
+"(hd-d5 8)","hd-d5","4",8.009,False
+"(hd-d5 9)","hd-d5","4",6.769,False
+"(hd-d5 10)","hd-d5","4",8.493,False
+"(hd-d5 11)","hd-d5","4",11.368,False
+"(hd-d5 12)","hd-d5","4",8.234,False
+"(hd-d5 13)","hd-d5","4",19.436,False
+"(hd-d5 14)","hd-d5","4",358.245,False
+"(hd-d5 15)","hd-d5","4",545.302,False
+"(hd-d5 16)","hd-d5","4",21.848,False
+"(hd-d5 17)","hd-d5","4",13.375,False
+"(hd-d5 18)","hd-d5","4",8.608,False
+"(hd-d5 19)","hd-d5","4",3600.000,True
+"(hd-d5 20)","hd-d5","4",3600.000,True
+"(array-search 2)","arraysearch","4",6.553,False
+"(array-search 3)","arraysearch","4",6.503,False
+"(array-search 4)","arraysearch","4",8.717,False
+"(array-search 5)","arraysearch","4",10.588,False
+"(array-search 6)","arraysearch","4",13.292,False
+"(array-search 7)","arraysearch","4",14.219,False
+"(array-search 8)","arraysearch","4",57.369,False
+"(array-search 9)","arraysearch","4",173.024,False
+"(array-search 10)","arraysearch","4",144.220,False
+"(array-search 11)","arraysearch","4",223.768,False
+"(array-search 12)","arraysearch","4",165.055,False
+"(array-search 13)","arraysearch","4",238.842,False
+"(array-search 14)","arraysearch","4",132.748,False
+"(array-search 15)","arraysearch","4",467.422,False
+"(qm qm_choose_01)","qm","4",4.002,False
+"(qm qm_choose_yz)","qm","4",58.782,False
+"(qm qm_loop_1)","qm","4",3.900,False
+"(qm qm_loop_2)","qm","4",5.932,False
+"(qm qm_loop_3)","qm","4",7.180,False
+"(qm qm_max2)","qm","4",36.029,False
+"(qm qm_max3)","qm","4",3600.000,True
+"(qm qm_neg_1)","qm","4",5.441,False
+"(qm qm_neg_2)","qm","4",3.937,False
+"(qm qm_neg_3)","qm","4",4.290,False
+"(qm qm_neg_4)","qm","4",174.397,False
+"(qm qm_neg_eq_1)","qm","4",3.891,False
+"(qm qm_neg_eq_2)","qm","4",142.971,False
+"(fft-sin)","parrot","4",4.443,False
+"(fft-cos)","parrot","4",4.400,False
+"(inversek2j-theta1)","parrot","4",14.928,False
+"(inversek2j-theta2)","parrot","4",9.260,False
+"(sobel-x)","parrot","4",2839.065,False
+"(sobel-y)","parrot","4",2336.701,False
+"(kmeans)","parrot","4",3802.910,False
+"(hd-d0 1)","hd-d0","8",4.886,False
+"(hd-d0 2)","hd-d0","8",5.539,False
+"(hd-d0 3)","hd-d0","8",4.946,False
+"(hd-d0 4)","hd-d0","8",6.588,False
+"(hd-d0 5)","hd-d0","8",4.837,False
+"(hd-d0 6)","hd-d0","8",5.798,False
+"(hd-d0 7)","hd-d0","8",5.240,False
+"(hd-d0 8)","hd-d0","8",6.670,False
+"(hd-d0 9)","hd-d0","8",4.841,False
+"(hd-d0 10)","hd-d0","8",6.449,False
+"(hd-d0 11)","hd-d0","8",5.536,False
+"(hd-d0 12)","hd-d0","8",5.304,False
+"(hd-d0 13)","hd-d0","8",8.360,False
+"(hd-d0 14)","hd-d0","8",5.813,False
+"(hd-d0 15)","hd-d0","8",7.012,False
+"(hd-d0 16)","hd-d0","8",6.301,False
+"(hd-d0 17)","hd-d0","8",6.697,False
+"(hd-d0 18)","hd-d0","8",6.194,False
+"(hd-d0 19)","hd-d0","8",11.281,False
+"(hd-d0 20)","hd-d0","8",3600.000,True
+"(hd-d5 1)","hd-d5","8",7.099,False
+"(hd-d5 2)","hd-d5","8",6.102,False
+"(hd-d5 3)","hd-d5","8",5.790,False
+"(hd-d5 4)","hd-d5","8",6.149,False
+"(hd-d5 5)","hd-d5","8",6.457,False
+"(hd-d5 6)","hd-d5","8",6.700,False
+"(hd-d5 7)","hd-d5","8",6.596,False
+"(hd-d5 8)","hd-d5","8",6.140,False
+"(hd-d5 9)","hd-d5","8",7.256,False
+"(hd-d5 10)","hd-d5","8",8.918,False
+"(hd-d5 11)","hd-d5","8",10.085,False
+"(hd-d5 12)","hd-d5","8",9.059,False
+"(hd-d5 13)","hd-d5","8",18.298,False
+"(hd-d5 14)","hd-d5","8",646.192,False
+"(hd-d5 15)","hd-d5","8",640.225,False
+"(hd-d5 16)","hd-d5","8",24.427,False
+"(hd-d5 17)","hd-d5","8",13.606,False
+"(hd-d5 18)","hd-d5","8",7.561,False
+"(hd-d5 19)","hd-d5","8",3600.000,True
+"(hd-d5 20)","hd-d5","8",3600.000,True
+"(array-search 2)","arraysearch","8",6.253,False
+"(array-search 3)","arraysearch","8",6.763,False
+"(array-search 4)","arraysearch","8",6.858,False
+"(array-search 5)","arraysearch","8",8.274,False
+"(array-search 6)","arraysearch","8",15.316,False
+"(array-search 7)","arraysearch","8",11.965,False
+"(array-search 8)","arraysearch","8",41.676,False
+"(array-search 9)","arraysearch","8",172.686,False
+"(array-search 10)","arraysearch","8",110.783,False
+"(array-search 11)","arraysearch","8",252.561,False
+"(array-search 12)","arraysearch","8",163.357,False
+"(array-search 13)","arraysearch","8",169.972,False
+"(array-search 14)","arraysearch","8",138.581,False
+"(array-search 15)","arraysearch","8",339.142,False
+"(qm qm_choose_01)","qm","8",6.050,False
+"(qm qm_choose_yz)","qm","8",39.016,False
+"(qm qm_loop_1)","qm","8",4.540,False
+"(qm qm_loop_2)","qm","8",4.954,False
+"(qm qm_loop_3)","qm","8",5.498,False
+"(qm qm_max2)","qm","8",40.322,False
+"(qm qm_max3)","qm","8",2960.899,False
+"(qm qm_neg_1)","qm","8",6.499,False
+"(qm qm_neg_2)","qm","8",6.105,False
+"(qm qm_neg_3)","qm","8",5.201,False
+"(qm qm_neg_4)","qm","8",26.427,False
+"(qm qm_neg_eq_1)","qm","8",5.337,False
+"(qm qm_neg_eq_2)","qm","8",108.643,False
+"(fft-sin)","parrot","8",6.162,False
+"(fft-cos)","parrot","8",5.961,False
+"(inversek2j-theta1)","parrot","8",11.482,False
+"(inversek2j-theta2)","parrot","8",6.703,False
+"(sobel-x)","parrot","8",1611.894,False
+"(sobel-y)","parrot","8",1740.620,False
+"(kmeans)","parrot","8",2000.368,False

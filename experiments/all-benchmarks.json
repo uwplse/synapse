@@ -1,0 +1,18 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true},
+    "configurations": [
+        {
+            "arguments": {"timeout": 3600},
+            "benchmarks": ["hd-d0", "hd-d5"]
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum", "bitwidth": 6},
+            "benchmarks": ["arraysearch", "qm"]
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["parrot"]
+        }
+    ],
+    "plot": "all-benchmarks.py"
+}

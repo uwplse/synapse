@@ -1,0 +1,66 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true},
+    "configurations": [
+        {
+            "arguments": {"timeout": 3600},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"opts": "both"}
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum"},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"opts": "both"}
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"opts": "both"}
+        },
+        {
+            "arguments": {"timeout": 3600, "use_structure_constraints": false},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"opts": "cex"}
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum", "use_structure_constraints": false},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"opts": "cex"}
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum", "use_structure_constraints": false},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"opts": "cex"}
+        },
+        {
+            "arguments": {"timeout": 3600, "exchange_cex": false},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"opts": "structure"}
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum", "exchange_cex": false},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"opts": "structure"}
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum", "exchange_cex": false},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"opts": "structure"}
+        },
+        {
+            "arguments": {"timeout": 3600, "exchange_cex": false, "use_structure_constraints": false},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"opts": "none"}
+        },
+        {
+            "arguments": {"timeout": 3600, "order": "sum", "exchange_cex": false, "use_structure_constraints": false},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"opts": "none"}
+        },
+        {
+            "arguments": {"timeout": 86400, "error": 1, "order": "sum", "exchange_cex": false, "use_structure_constraints": false},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"opts": "none"}
+        }
+    ],
+    "plot": "optimizations.py"
+}

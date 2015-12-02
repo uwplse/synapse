@@ -1,0 +1,75 @@
+"benchmark","group","time","timeout"
+"(hd-d0 1)","hd-d0",8.955,False
+"(hd-d0 2)","hd-d0",8.942,False
+"(hd-d0 3)","hd-d0",6.554,False
+"(hd-d0 4)","hd-d0",8.028,False
+"(hd-d0 5)","hd-d0",8.096,False
+"(hd-d0 6)","hd-d0",9.651,False
+"(hd-d0 7)","hd-d0",12.212,False
+"(hd-d0 8)","hd-d0",12.293,False
+"(hd-d0 9)","hd-d0",9.816,False
+"(hd-d0 10)","hd-d0",10.270,False
+"(hd-d0 11)","hd-d0",9.510,False
+"(hd-d0 12)","hd-d0",9.306,False
+"(hd-d0 13)","hd-d0",18.694,False
+"(hd-d0 14)","hd-d0",16.547,False
+"(hd-d0 15)","hd-d0",15.391,False
+"(hd-d0 16)","hd-d0",16.869,False
+"(hd-d0 17)","hd-d0",11.598,False
+"(hd-d0 18)","hd-d0",17.827,False
+"(hd-d0 19)","hd-d0",25.777,False
+"(hd-d0 20)","hd-d0",1297.069,False
+"(hd-d5 1)","hd-d5",11.453,False
+"(hd-d5 2)","hd-d5",12.359,False
+"(hd-d5 3)","hd-d5",6.461,False
+"(hd-d5 4)","hd-d5",9.965,False
+"(hd-d5 5)","hd-d5",10.014,False
+"(hd-d5 6)","hd-d5",11.268,False
+"(hd-d5 7)","hd-d5",10.061,False
+"(hd-d5 8)","hd-d5",12.118,False
+"(hd-d5 9)","hd-d5",10.626,False
+"(hd-d5 10)","hd-d5",16.507,False
+"(hd-d5 11)","hd-d5",17.648,False
+"(hd-d5 12)","hd-d5",15.864,False
+"(hd-d5 13)","hd-d5",17.870,False
+"(hd-d5 14)","hd-d5",1250.055,False
+"(hd-d5 15)","hd-d5",856.564,False
+"(hd-d5 16)","hd-d5",44.299,False
+"(hd-d5 17)","hd-d5",24.145,False
+"(hd-d5 18)","hd-d5",11.586,False
+"(hd-d5 19)","hd-d5",3600.000,True
+"(hd-d5 20)","hd-d5",3600.000,True
+"(array-search 2)","arraysearch",9.358,False
+"(array-search 3)","arraysearch",9.734,False
+"(array-search 4)","arraysearch",17.484,False
+"(array-search 5)","arraysearch",18.594,False
+"(array-search 6)","arraysearch",22.396,False
+"(array-search 7)","arraysearch",24.141,False
+"(array-search 8)","arraysearch",99.939,False
+"(array-search 9)","arraysearch",227.638,False
+"(array-search 10)","arraysearch",183.807,False
+"(array-search 11)","arraysearch",339.306,False
+"(array-search 12)","arraysearch",280.116,False
+"(array-search 13)","arraysearch",290.553,False
+"(array-search 14)","arraysearch",229.654,False
+"(array-search 15)","arraysearch",594.568,False
+"(qm qm_choose_01)","qm",7.035,False
+"(qm qm_choose_yz)","qm",209.952,False
+"(qm qm_loop_1)","qm",7.121,False
+"(qm qm_loop_2)","qm",8.791,False
+"(qm qm_loop_3)","qm",9.110,False
+"(qm qm_max2)","qm",67.232,False
+"(qm qm_max3)","qm",3600.000,True
+"(qm qm_neg_1)","qm",5.972,False
+"(qm qm_neg_2)","qm",7.888,False
+"(qm qm_neg_3)","qm",8.235,False
+"(qm qm_neg_4)","qm",70.358,False
+"(qm qm_neg_eq_1)","qm",6.975,False
+"(qm qm_neg_eq_2)","qm",35.104,False
+"(fft-sin)","parrot",10.493,False
+"(fft-cos)","parrot",10.985,False
+"(inversek2j-theta1)","parrot",61.948,False
+"(inversek2j-theta2)","parrot",24.774,False
+"(sobel-x)","parrot",7677.887,False
+"(sobel-y)","parrot",7038.087,False
+"(kmeans)","parrot",14203.590,False

@@ -1,0 +1,66 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true},
+    "configurations": [
+        {
+            "arguments": {"threads": 1, "timeout": 3600},
+            "benchmarks": ["hd-d0", "hd-d5"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 1, "timeout": 3600, "order": "sum", "bitwidth": 6},
+            "benchmarks": ["arraysearch", "qm"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 1, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["parrot"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 3600},
+            "benchmarks": ["hd-d0", "hd-d5"],
+            "id": {"threads": 2}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 3600, "order": "sum", "bitwidth": 6},
+            "benchmarks": ["arraysearch", "qm"],
+            "id": {"threads": 2}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["parrot"],
+            "id": {"threads": 2}
+        },
+        {
+            "arguments": {"threads": 4, "timeout": 3600},
+            "benchmarks": ["hd-d0", "hd-d5"],
+            "id": {"threads": 4}
+        },
+        {
+            "arguments": {"threads": 4, "timeout": 3600, "order": "sum", "bitwidth": 6},
+            "benchmarks": ["arraysearch", "qm"],
+            "id": {"threads": 4}
+        },
+        {
+            "arguments": {"threads": 4, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["parrot"],
+            "id": {"threads": 4}
+        },
+        {
+            "arguments": {"threads": 8, "timeout": 3600},
+            "benchmarks": ["hd-d0", "hd-d5"],
+            "id": {"threads": 8}
+        },
+        {
+            "arguments": {"threads": 8, "timeout": 3600, "order": "sum", "bitwidth": 6},
+            "benchmarks": ["arraysearch", "qm"],
+            "id": {"threads": 8}
+        },
+        {
+            "arguments": {"threads": 8, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["parrot"],
+            "id": {"threads": 8}
+        }
+    ],
+    "plot": "parallel-speedup.py"
+}

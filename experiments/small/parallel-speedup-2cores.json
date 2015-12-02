@@ -1,0 +1,36 @@
+{
+    "arguments": {"solver_timeout": 900, "widening": true},
+    "configurations": [
+        {
+            "arguments": {"threads": 1, "timeout": 3600},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 1, "timeout": 3600, "order": "sum"},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 1, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"threads": 1}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 3600},
+            "benchmarks": ["(hd-d5 1)", "(hd-d5 2)", "(hd-d5 3)", "(hd-d5 4)", "(hd-d5 5)"],
+            "id": {"threads": 2}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 3600, "order": "sum"},
+            "benchmarks": ["(array-search 2)", "(array-search 3)"],
+            "id": {"threads": 2}
+        },
+        {
+            "arguments": {"threads": 2, "timeout": 86400, "error": 1, "order": "sum"},
+            "benchmarks": ["(fft-sin)", "(fft-cos)"],
+            "id": {"threads": 2}
+        }
+    ],
+    "plot": "parallel-speedup.py"
+}

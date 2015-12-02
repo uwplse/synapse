@@ -1,0 +1,13 @@
+{
+    "arguments": {"solver_timeout": 100},
+    "configurations": [
+        {
+            "arguments": {"timeout": 100, "widening": true},
+            "benchmarks": ["(hd-d0 1)", "(hd-d0 2)", "(hd-d0 3)"]
+        },
+        {
+            "arguments": {"timeout": 100, "widening": true, "threads": 2},
+            "benchmarks": ["(hd-d0 1)"]
+        }
+    ]
+}
