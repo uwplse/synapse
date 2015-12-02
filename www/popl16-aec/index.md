@@ -61,7 +61,7 @@ The artifact addresses all the research questions in the "Evaluation" section of
 Install [VirtualBox 5.0.6](https://www.virtualbox.org/wiki/Downloads) and the VirtualBox extension pack.
 Import the VirtualBox image (open VirtualBox, then File > Import Appliance).
 Boot the resulting virtual machine.
-It will log in be automatically as the `synapse` user,
+It will log in automatically as the `synapse` user,
 and open a terminal in the `~/opsyn` directory.
 There is also a desktop shortcut to re-open this terminal.
 
