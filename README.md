@@ -1,5 +1,7 @@
 # Synapse
 
+[![Build Status](https://travis-ci.org/uwplse/synapse.svg?branch=master)](https://travis-ci.org/uwplse/synapse)
+
 Synapse is a framework for program synthesis with cost functions, as described in our POPL'16 paper [*Optimizing Synthesis with Metasketches*](http://synapse.uwplse.org/synapse-popl16.pdf).
 
 ## Requirements

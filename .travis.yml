@@ -1,0 +1,43 @@
+language: java
+sudo: false
+
+env:
+  global:
+    - RACKET_DIR=~/racket 
+    - Z3_DIR=~/z3
+    - RACKET_URL="http://www.eecs.northwestern.edu/racket/6.2.1/racket-6.2.1-x86_64-linux-ubuntu-precise.sh"
+
+before_install:
+  - git clone https://github.com/emina/rosette.git rosette
+
+install:
+  - if [[ ! -e "$Z3_DIR/build/z3" ]]; then
+      rm -rf $Z3_DIR;
+      git clone https://github.com/z3prover/z3.git $Z3_DIR;
+      cd $Z3_DIR;
+      python scripts/mk_make.py;
+      cd $Z3_DIR/build;
+      make -j2;
+      cd $TRAVIS_BUILD_DIR;
+    else echo "using z3 from cache"; fi
+  - if [[ ! -e "$RACKET_DIR/bin/racket" ]]; then
+      rm -rf $RACKET_DIR;
+      curl -L -o racket.sh $RACKET_URL;
+      sh ./racket.sh --in-place --dest $RACKET_DIR;
+    else echo "using racket from cache"; fi
+  - cp $Z3_DIR/build/z3 rosette/bin/
+  - cd rosette && ~/racket/bin/raco link rosette && ~/racket/bin/raco setup -l rosette && cd $TRAVIS_BUILD_DIR
+
+before_script:
+  - rosette/bin/z3 --version
+  - cd $Z3_DIR && git rev-parse HEAD && cd $TRAVIS_BUILD_DIR
+  - cd rosette && git rev-parse HEAD && cd $TRAVIS_BUILD_DIR
+
+script:
+  - ~/racket/bin/raco make test/*-test.rkt
+  - ~/racket/bin/raco test -t test/*-test.rkt
+
+cache:
+  directories:
+    - $Z3_DIR
+    - $RACKET_DIR
