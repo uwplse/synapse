@@ -45,7 +45,7 @@ cannot.
 
 ## Get the code
 
-Coming soon!
+Synapse is available [on GitHub](https://github.com/uwplse/synapse).
 
 ## Download the artifact
 

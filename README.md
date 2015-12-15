@@ -28,6 +28,10 @@ The expression `(hd-d0 1)` specifies the benchmark to execute. To see a list of 
 
 Instructions for running more experiments with Synapse's existing benchmarks accompany our [POPL'16 artifact](http://synapse.uwplse.org/popl16-aec/).
 
+### Results
+
+The raw results from our POPL'16 paper are located in the `experiments/data` directory.
+
 ## Using metasketches
 
 A *metasketch* is an ordered set of *sketches* together with a cost function and gradient function. Together, these elements define an optimal synthesis problem: the set of sketches defines the search space, and the solution is the program in that search space that minimizes the cost function.
