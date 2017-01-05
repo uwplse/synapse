@@ -114,7 +114,7 @@
 
 
 (define (make-const)
-  (define-symbolic* val number?)
+  (define-symbolic* val integer?)
   (values (bv val) val))
 
 (define (make-neural-program classifier? topology)
@@ -171,7 +171,7 @@
   ; Force the neural network to return either 0 or 1, with a hole for the output
   ; threshold that determines which to return.
   (when classifier?
-    (define-symbolic* threshold number?)
+    (define-symbolic* threshold integer?)
     (define n (+ arity (length prog)))
     (define classifier (list (bv 0) (bv 1) (bv threshold) (bvslt (- n 1) (+ n 2)) (ite (+ n 3) n (+ n 1))))
     (set! prog (append prog classifier)))

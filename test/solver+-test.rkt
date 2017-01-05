@@ -4,7 +4,7 @@
          rackunit "test-runner.rkt" (only-in racket remove*))
 
 (current-bitwidth 32)
-(define-symbolic x h number?)
+(define-symbolic x h integer?)
 (define-symbolic ch1 ch2 boolean?)
 
 (define (result=? actual expected)

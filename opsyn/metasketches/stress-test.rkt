@@ -17,7 +17,7 @@
   (program 1
     (for/fold ([prog '()])
               ([i (car idx)])
-      (define-symbolic* coeff number?)
+      (define-symbolic* coeff integer?)
       (append prog (list (bv coeff) (bvadd (* 2 i) (+ (* 2 i) 1)))))))
 
 (define (tm-make-subset len order)

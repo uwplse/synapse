@@ -5,7 +5,7 @@
 
 (current-bitwidth 32)
 
-(define-symbolic* x y number?)
+(define-symbolic* x y integer?)
 
 ; Trivial tests.
 (define (test0)

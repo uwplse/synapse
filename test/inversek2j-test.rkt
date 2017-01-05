@@ -4,7 +4,6 @@
   "../opsyn/engine/metasketch.rkt" "../opsyn/engine/eval.rkt" "../opsyn/engine/util.rkt"
   "../opsyn/bv/lang.rkt" "../opsyn/metasketches/imetasketch.rkt"
   "../benchmarks/parrot/inversek2j.rkt" "../opsyn/engine/solver+.rkt"
-  rosette/solver/smt/z3
   rackunit "test-runner.rkt")
 
 (current-bitwidth 32)
@@ -16,9 +15,7 @@
       (∃∀solver #:forall (inputs M) 
                 #:pre (pre S) 
                 #:post (append (post S (programs S)) (structure M S))
-                #:samples (list (sat (for/hash ([x (inputs M)]) (values x 1))))
-                #:synthesizer z3%
-                #:verifier z3%)
+                #:samples (list (sat (for/hash ([x (inputs M)]) (values x 1)))))
       (begin0
         (second (thread-receive))  
         (custodian-shutdown-all (current-custodian))))))

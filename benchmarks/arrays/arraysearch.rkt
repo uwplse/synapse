@@ -1,6 +1,6 @@
 #lang s-exp rosette
 
-(require racket/generator racket/serialize rosette/lib/tools/angelic rosette/base/generic
+(require racket/generator racket/serialize rosette/lib/angelic rosette/base/core/polymorphic
          "../../opsyn/engine/eval.rkt"
          "../../opsyn/engine/metasketch.rkt"
          "../../opsyn/metasketches/imetasketch.rkt"
@@ -63,7 +63,7 @@
       (parameterize ([current-oracle (oracle)])
         (define inputs
           (for/list ([x (first e)])
-            (define-symbolic* in number?)
+            (define-symbolic* in integer?)
             (namespace-set-variable-value! x in #f ns)
             in))
         (array-program

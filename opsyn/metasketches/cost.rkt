@@ -1,6 +1,6 @@
 #lang s-exp rosette
 
-(require rosette/lib/reflect/match
+(require rosette/lib/match
          "../bv/lang.rkt" "../engine/metasketch.rkt")
 
 (provide ∑cost sample-cost-model constant-cost-model sample-costs static-cost-model lowest-cost)

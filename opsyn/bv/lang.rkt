@@ -1,6 +1,6 @@
 #lang s-exp rosette
 
-(require "../engine/util.rkt" rosette/lib/reflect/match racket/serialize)
+(require "../engine/util.rkt" rosette/lib/match racket/serialize)
 
 (provide (except-out (all-defined-out) define-instruction bool->bv bvscmp bvucmp))
 
@@ -139,9 +139,9 @@
       [(bvand r1 r2)  (store idx (bitwise-and (load r1) (load r2)))]
       [(bvor r1 r2)   (store idx (bitwise-ior (load r1) (load r2)))]
       [(bvxor r1 r2)  (store idx (bitwise-xor (load r1) (load r2)))]
-      [(bvshl r1 r2)  (store idx (<< (load r1) (load r2)))]
-      [(bvlshr r1 r2) (store idx (>>> (load r1) (load r2)))]
-      [(bvashr r1 r2) (store idx (>> (load r1) (load r2)))]
+      [(bvshl r1 r2)  (store idx (bvshl (load r1) (load r2)))]
+      [(bvlshr r1 r2) (store idx (bvlshr (load r1) (load r2)))]
+      [(bvashr r1 r2) (store idx (bvashr (load r1) (load r2)))]
       [(bvneg r1)     (store idx (- (load r1)))]
       [(bvadd r1 r2)  (store idx (+ (load r1) (load r2)))]
       [(bvsub r1 r2)  (store idx (- (load r1) (load r2)))]
@@ -161,10 +161,10 @@
       [(bvmin r1 r2)  (store idx (min (load r1) (load r2)))]
       [(bvmax r1 r2)  (store idx (max (load r1) (load r2)))]
       [(ite r1 r2 r3) (store idx (if (= (load r1) 0) (load r3) (load r2)))]
-      [(shr1 r1)      (store idx (>>> (load r1) 1))]
-      [(shr4 r1)      (store idx (>>> (load r1) 4))]
-      [(shr16 r1)     (store idx (>>> (load r1) 16))]
-      [(shl1 r1)      (store idx (<< (load r1) 1))]
+      [(shr1 r1)      (store idx (bvlshr (load r1) 1))]
+      [(shr4 r1)      (store idx (bvlshr (load r1) 4))]
+      [(shr16 r1)     (store idx (bvlshr (load r1) 16))]
+      [(shl1 r1)      (store idx (bvshl (load r1) 1))]
       [(if0 r1 r2 r3) (store idx (if (= (load r1) 1) (load r2) (load r3)))]
       ))
   (load (- size 1)))

@@ -1,8 +1,8 @@
 #lang s-exp rosette
 
-(require rosette/lib/tools/angelic rosette/lib/reflect/match 
+(require rosette/lib/angelic rosette/lib/match 
          racket/generator racket/serialize 
-         rosette/solver/kodkod/kodkod
+         rosette/solver/smt/z3
          (only-in racket [member member*]))
 
 (require "../../opsyn/bv/lang.rkt"   
@@ -53,11 +53,11 @@
   (cond [(and (not (null? wt-sym))     ; κ evaluated on a concrete program and 
               (for/and ([sym wt-sym])  ; produced an input-dependent term.
                 (member* sym xs)))     ; need to maximize that term to get WCET.
-         (define solver (new kodkod-incremental%))
+         (define solver (z3))
          (define wcet 
            (let loop ([current-wcet 0])
-             (send solver assert (> wt current-wcet))
-             (define sol (send solver solve))
+             (solver-assert solver (list (> wt current-wcet)))
+             (define sol (solver-check solver))
              (if (sat? sol)
                  (loop 
                   (evaluate 
@@ -65,7 +65,7 @@
                    (sat (for/hash ([sym wt-sym]) ; pad solution if needed
                           (values sym (if (constant? (sol sym)) 0 (sol sym)))))))
                  current-wcet)))           
-         (send solver shutdown)
+         (solver-shutdown solver)
          wcet]
         [else                          ; κ evaluated on a sketch and/or 
          wt]))                         ; produced a concrete value.
@@ -89,7 +89,7 @@
       (parameterize ([current-oracle (oracle)])
         (define inputs
           (for/list ([x (second e)])
-            (define-symbolic* in number?)
+            (define-symbolic* in integer?)
             (namespace-set-variable-value! x in #f ns)
             in))
         (expr
@@ -130,10 +130,10 @@
   (match E
     [(bvashr left right)
      (set-box! cost (+ 1 (unbox cost)))
-     (finitize (>> (interpret* left cost) (interpret* right cost)))]
+     (finitize (bvashr (interpret* left cost) (interpret* right cost)))]
     [(bvlshr left right)
      (set-box! cost (+ 1 (unbox cost)))
-     (finitize (>>> (interpret* left cost) (interpret* right cost)))]
+     (finitize (bvlshr (interpret* left cost) (interpret* right cost)))]
     [(bvor left right)
      (set-box! cost (+ 1 (unbox cost)))
      (finitize (bitwise-ior (interpret* left cost) (interpret* right cost)))]
@@ -213,7 +213,7 @@
         (bvor 0 31))))
 
 
-;(define-symbolic x number?)
+;(define-symbolic x integer?)
 ;(define r (expr (reference x) (list x) 5))
 ;(define d (expr (desired x) (list x) 5))
 ;(define s (expr (synth x) (list x) 5))

@@ -4,11 +4,9 @@
          ;"../opsyn/engine/search-old.rkt"
          "../opsyn/metasketches/cost.rkt" "../opsyn/metasketches/iterator.rkt"
          "hd/reference.rkt"
-         "sygus/qm/reference.rkt"
-         rosette/solver/smt/z3 rosette/solver/kodkod/kodkod)
+         "sygus/qm/reference.rkt")
 
 (define (cmd-parse [args (current-command-line-arguments)])
-  (current-log-handler (log-handler #:info none/c))
   (define verbosity 0)
   (define bw 32)
   (define e 1)
@@ -20,8 +18,6 @@
   (define timeout 900)
   (define order #f)
   (define widening #f)
-  (define solver-synth 'kodkod-incremental%)
-  (define solver-verify 'kodkod%)
   
   (define ms
     (command-line
@@ -118,16 +114,6 @@
      [("-w" "--widening")
       "Perform bitwidth widening."
       (set! widening #t)]
-
-     [("-r" "--solver")
-      slvr
-      "Solver to use."
-      (match slvr
-        ["z3" (set! solver-synth 'z3%)
-              (set! solver-verify 'z3%)]
-        ["kodkod" (set! solver-synth 'kodkod-incremental%)
-                  (set! solver-verify 'kodkod%)]
-        [else (error 'solver "unrecognized solver ~a" slvr)])]
      
      #:args (benchmark)
      (cmd->metasketch benchmark e order)))
@@ -139,7 +125,7 @@
       [v v]))
   (values verbosity ms bw threads timeout
           structure exchange-cex exchange-costs incremental
-          widening solver-synth solver-verify))
+          widening))
      
 
 (define (cmd->metasketch cmd e order)
@@ -172,7 +158,7 @@
 (define (run)
   (define-values (verbose ms bw threads timeout
                           structure exchange-cex exchange-costs incremental
-                          widening solver-synth solver-verify) (cmd-parse))
+                          widening) (cmd-parse))
   (define P (search #:metasketch ms
                     #:threads threads
                     #:timeout timeout
@@ -182,8 +168,6 @@
                     #:use-structure structure
                     #:incremental incremental
                     #:widening (if widening (list 1) #f)
-                    #:synthesizer solver-synth
-                    #:verifier solver-verify
                     #:verbose verbose))
   (error-print-width 100000)  ; don't truncate the output program
   P)

@@ -1,11 +1,10 @@
 #lang racket
 
 (require "util.rkt"
-         rosette/query/state 
-         rosette/base/term 
-         (only-in rosette >> << >>> current-bitwidth)
-         rosette/base/generic rosette/base/union
-         rosette/base/merge rosette/solver/solution)
+         rosette/base/core/term 
+         (only-in rosette bvashr bvshl bvlshr current-bitwidth)
+         rosette/base/core/polymorphic rosette/base/core/union
+         rosette/base/core/merge rosette/solver/solution)
 
 (provide evaluate)
 
@@ -14,7 +13,7 @@
 ; variable occuring in the expression, the output is a concrete value.  Otherwise, the 
 ; output is a (possibly) symbolic value, expressed in terms of variables that are not
 ; bound by the given solution.  The solution must be sat?.
-(define (evaluate expr [sol (current-solution)])
+(define (evaluate expr sol)
   (if (and (sat? sol) (= (dict-count (model sol)) 0)) 
       expr
       (eval-rec expr sol (make-hash))))
@@ -31,7 +30,7 @@
                   [#t (eval-rec t sol cache)]
                   [#f (eval-rec f sol cache)]
                   [g (ite g (eval-rec t sol cache) (eval-rec f sol cache))])]
-               [(expression (and (or (== >>) (== >>>) (== <<)) op) left right)
+               [(expression (and (or (== bvashr) (== bvlshr) (== bvshl)) op) left right)
                 (let* ([shift (finitize (eval-rec right sol cache))]
                        [shift (if (number? shift) (min shift (current-bitwidth)) shift)]
                        [shift (if (number? shift) (if (>= shift 0) shift (current-bitwidth)) shift)])

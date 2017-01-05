@@ -3,7 +3,6 @@
 (require "../engine/metasketch.rkt" "solver+.rkt" "verifier.rkt" "util.rkt"
          "../../benchmarks/all.rkt" "../metasketches/imetasketch.rkt" "../bv/lang.rkt"
          "log.rkt" "sample.rkt"
-         rosette/solver/kodkod/kodkod rosette/solver/smt/z3
          racket/serialize)
 
 (provide search-worker)
@@ -17,16 +16,12 @@
   ; first thing we receive should be the configuration
   (match-define (list 'config my-id start-time timeout verbose
                       bitwidth bit-widening
-                      exchange-samples? exchange-costs? use-structure? incremental?
-                      synthesizer% verifier%)
+                      exchange-samples? exchange-costs? use-structure? incremental?)
     (place-channel-get channel))
 
   (parameterize ([log-start-time start-time]
                  [log-id my-id]
                  [logging? verbose])
-    (set! synthesizer% (eval synthesizer% ns))
-    (set! verifier% (eval verifier% ns))
-
     (log-search "worker started")
 
     ; next we get the metasketch
@@ -84,9 +79,7 @@
                                          #:exchange-samples? exchange-samples?
                                          #:exchange-costs? exchange-costs?
                                          #:use-structure? use-structure?
-                                         #:incremental? incremental?
-                                         #:synthesizer synthesizer%
-                                         #:verifier verifier%)))))]
+                                         #:incremental? incremental?)))))]
          [(list 'kill)  ; kill the current sketch
           (kill-current-sketch)]
          [(list 'samples samps)  ; new samples: inflate and send to local search
@@ -106,9 +99,7 @@
                       #:exchange-samples? exchange-samples?
                       #:exchange-costs? exchange-costs?
                       #:use-structure? use-structure?
-                      #:incremental? incremental?
-                      #:synthesizer synthesizer%
-                      #:verifier verifier%)
+                      #:incremental? incremental?)
 
   ; figure out the bitwidths to try
   (define minbw (min-bitwidth ms sketch))
@@ -146,9 +137,7 @@
           (∃∀solver #:forall P-inputs
                     #:pre P-pre
                     #:post P-post
-                    #:samples (hash-ref samples bw '())
-                    #:synthesizer synthesizer%
-                    #:verifier verifier%)))
+                    #:samples (hash-ref samples bw '()))))
       (define verif-cust #f)
       (define verif-solution #f)
       (define verif-samples #f)

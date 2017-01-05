@@ -37,5 +37,5 @@
                 [e (finitize e)]
                 [diff (finitize (abs (finitize (- s p))))])
            (assert (>= diff 0))
-           (assert (<= diff (finitize (>> (finitize (abs s)) e))))))
+           (assert (<= diff (finitize (bvashr (finitize (abs s)) e))))))
        'relaxed)))

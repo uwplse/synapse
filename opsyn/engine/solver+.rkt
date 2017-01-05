@@ -1,13 +1,11 @@
 #lang racket
 
 (require "eval.rkt" "util.rkt" "log.rkt"
-         (only-in rosette/base/bool @boolean? ! ||) 
-         (only-in rosette/base/num @number? ignore-division-by-0)
-         (only-in rosette/base/enum enum? enum-first)
+         (only-in rosette/base/core/bool @boolean? ! ||) 
+         (only-in rosette/base/core/real @integer? @real?)
          (only-in rosette symbolics type-of constant term? union? current-bitwidth)
-         rosette/solver/solver 
-         rosette/solver/solution
-         rosette/solver/kodkod/kodkod)
+         rosette/solver/solver rosette/solver/smt/z3
+         rosette/solver/solution)
 
 (provide ∃∀solver)
 
@@ -49,16 +47,13 @@
          #:pre     [pre '()]
          #:post    [post '()]
          #:samples [samples '()]
-         #:output  [output (current-thread)]
-         #:synthesizer [synthesizer% kodkod-incremental%] ; Type of solver to use for synthesis.
-         #:verifier [verifier% kodkod%])                  ; Type of solver to use for verification.  
+         #:output  [output (current-thread)])                  ; Type of solver to use for verification.  
   (thread
    (thunk
-    (parameterize ([ignore-division-by-0 #t])
+    ;(parameterize ([ignore-division-by-0 #t])
       (send (new ∃∀solver% 
-                 [inputs inputs] [pre pre] [output output]
-                 [synthesizer% synthesizer%] [verifier% verifier%])
-            solve post samples)))))
+                 [inputs inputs] [pre pre] [output output])
+            solve post samples))));)
 
 (define ∃∀solver%
   (class* object% ()
@@ -68,8 +63,6 @@
      inputs     ; xs
      pre        ; Pre(xs)
      output)    ; consumer thread
-    
-    (init synthesizer% verifier%)  ; Type of solver to use for synthesis and verification.     
        
     ;-------- initialization -------- ; 
 
@@ -77,7 +70,7 @@
     (unless (for/and ([c (symbolics pre)]) (member c inputs))
       (raise-arguments-error '∃∀solver "preconditions may only reference input symbols"))
     
-    (define-values (synthesizer verifier) (values (new synthesizer%) (new verifier%)))
+    (define-values (synthesizer verifier) (values (z3) (z3)))
        
     (define-values (post samples pool) 
       (values '() '() '()))
@@ -101,15 +94,16 @@
         (unless (empty? dynamic)
           (set! post (append post dynamic))
           (for ([sample samples])
-            (send/apply synthesizer assert (evaluate dynamic sample))))
+            (solver-assert synthesizer (evaluate dynamic sample))))
         
         (unless (empty? static)
-          (send/apply synthesizer assert static))
+          (solver-assert synthesizer static))
 
         (log-cegis [trial] "searching for a candidate solution...")
 
         (define synth-start-time (current-inexact-milliseconds))
-        (define candidate (send/handle-breaks synthesizer solve cleanup))
+        ;(define candidate (send/handle-breaks synthesizer solve cleanup))
+        (define candidate (solver-check synthesizer))
         
         (cond
           [(sat? candidate)
@@ -120,7 +114,7 @@
              [(sat? cex)
               (set! cex (model->sample cex))
               (log-cegis [trial] [verify-start-time] "solution falsified by ~s" (map cex inputs))
-              (send/apply synthesizer assert (evaluate post cex))
+              (solver-assert synthesizer (evaluate post cex))
               (set! samples `(,@samples ,cex))
               (call-with-values thread-receive-non-blocking loop)]
              [else ; we have a valid candidate
@@ -135,10 +129,10 @@
     ;-------- private functions -------- ; 
     (define (cleanup)
       (when synthesizer 
-        (send synthesizer shutdown) 
+        (solver-shutdown synthesizer) 
         (set! synthesizer #f))
       (when verifier 
-        (send verifier shutdown)
+        (solver-shutdown verifier)
         (set! verifier #f)))
     
     ; Initializes the sample pool if needed
@@ -146,9 +140,10 @@
       (add-samples-to-pool! points)
       (cond 
         [(empty? pool)
-         (send/apply verifier assert pre)
-         (define s (send/handle-breaks verifier solve cleanup))
-         (send verifier clear)
+         (solver-assert verifier pre)
+         ;(define s (send/handle-breaks verifier solve cleanup))
+         (define s (solver-check verifier))
+         (solver-clear verifier)
          (when (sat? s)
            (set! samples (list (model->sample s))))]
         [else
@@ -182,11 +177,12 @@
             (set! pool (remove p pool))
             p)
           (begin
-            (send/apply verifier assert pre)
-            (send verifier assert ¬asserts)
+            (solver-assert verifier pre)
+            (solver-assert verifier (list ¬asserts))
             (begin0
-              (send/handle-breaks verifier solve cleanup)
-              (send verifier clear)))))
+              ;(send/handle-breaks verifier solve cleanup)
+              (solver-check verifier)
+              (solver-clear verifier)))))
     
     ; Adds the given sample points to the pool of samples. 
     ; Raises an error if any of the given point is not a sample for
@@ -210,12 +206,12 @@
     (define (model->sample m)
       (sat (for/hash ([in inputs]) 
              (match (m in)
-               [(constant _ (== @number?))
+               [(constant _ (== @integer?))
+                (values in 0)]
+               [(constant _ (== @real?))
                 (values in 0)]
                [(constant _ (== @boolean?))
                 (values in #f)]
-               [(constant _ (? enum? t))
-                (values in (enum-first t))]
                [val (values in val)]))))
     
     ; Returns true iff p is a satisfiable solution 

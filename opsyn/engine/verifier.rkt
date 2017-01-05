@@ -4,7 +4,6 @@
          (only-in rosette || ! current-bitwidth)
          rosette/solver/solver
          rosette/solver/solution
-         rosette/solver/kodkod/kodkod
          rosette/solver/smt/z3)
 
 (provide verify verify-async)
@@ -17,24 +16,15 @@
 (define (verify #:pre [pre '()] #:post [post '()])
   (cond [(and (empty? pre) (empty? post)) (unsat)]  ; #t => #t
         [(ormap false? pre) (unsat)]                ; any binding of xs to values causes pre violation
-        [(ormap false? post) (empty-solution)]      ; any binding of xs to values causes post violation
         [else
          (define ¬post (apply || (map ! post)))
-         (parameterize ([current-custodian (make-custodian)])
-           (∃solve kodkod% pre ¬post)
-           (∃solve z3% pre ¬post)
-           (begin0 
-             (thread-receive)
-             (custodian-shutdown-all (current-custodian))))]))
+         (∃solve (z3) pre ¬post)]))
 
-(define (∃solve solver% pre ¬post)
-  (define parent (current-thread))
-  (thread
-   (thunk
-    (define solver (new solver%))
-    (send/apply solver assert pre)
-    (send solver assert ¬post)
-    (thread-send parent (send/handle-breaks solver solve)))))
+(define (∃solve solver pre ¬post)
+  (solver-assert solver pre)
+  (solver-assert solver (list ¬post))
+  (solver-check solver)
+  #;(send/handle-breaks solver solve))
 
 ; Checks the validity of the formula Pre ⇒ Post, as with verify above.
 ; This procedure runs asynchronously, immediately returning a thread that
@@ -47,16 +37,6 @@
   (thread
    (thunk
     (define result
-      (cond [(and (empty? pre) (empty? post)) (unsat)]  ; #t => #t
-            [(ormap false? pre) (unsat)]                ; any binding of xs to values causes pre violation
-            [(ormap false? post) (empty-solution)]      ; any binding of xs to values causes post violation
-            [else
-             (define ¬post (apply || (map ! post)))
-             (parameterize ([current-custodian (make-custodian)])
-               (∃solve kodkod% pre ¬post)
-               (∃solve z3% pre ¬post)
-               (begin0
-                 (thread-receive)
-                 (custodian-shutdown-all (current-custodian))))]))
+      (verify #:pre pre #:post post))
     (thread-send output (list (current-thread) result)))))
   

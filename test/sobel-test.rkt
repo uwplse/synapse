@@ -4,7 +4,6 @@
   "../opsyn/engine/metasketch.rkt" "../opsyn/engine/eval.rkt" "../opsyn/engine/util.rkt"
   "../opsyn/bv/lang.rkt" "../opsyn/metasketches/imetasketch.rkt" 
   "../benchmarks/parrot/specs.rkt" "../benchmarks/parrot/sobel.rkt" "../opsyn/engine/solver+.rkt" 
-  rosette/solver/smt/z3
   rackunit "test-runner.rkt")
 
 (current-bitwidth 32)

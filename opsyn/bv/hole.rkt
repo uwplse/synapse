@@ -1,6 +1,6 @@
 #lang s-exp rosette
 
-(require "lang.rkt" rosette/lib/reflect/match rosette/lib/tools/angelic)
+(require "lang.rkt" rosette/lib/match rosette/lib/angelic)
 
 (provide ??instruction ??program break-commutativity-symmetries)
 
@@ -15,7 +15,7 @@
          (for/list ([constructor insts])
            (cond [(bv? constructor) constructor] ; baked-in constant
                  [(equal? bv constructor)           
-                  (local [(define-symbolic* val number?)] 
+                  (local [(define-symbolic* val integer?)] 
                     (bv val))]
                  [(= 1 (procedure-arity constructor)) (constructor r1)]
                  [(= 2 (procedure-arity constructor)) (constructor r1 r2)]

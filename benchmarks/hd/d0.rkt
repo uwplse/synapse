@@ -33,7 +33,7 @@
 ; if it is a constant (bv _).  
 ; The instruction must be concrete, since we are using (fast) 
 ; Racket matching instead of (slow) Rosette matching provided 
-; by rosette/lib/reflect/match.
+; by rosette/lib/match.
 (define (instruction->type inst)
   (match inst
     [(bv _)       inst]

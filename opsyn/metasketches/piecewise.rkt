@@ -207,7 +207,7 @@
         [_        (void)]))))
 
 (define (bvbounded)
-  (define-symbolic* val number?)
+  (define-symbolic* val integer?)
   (bv val))
 (define (extract-bvbounded-val op)
   (match op [(bv val) val]))

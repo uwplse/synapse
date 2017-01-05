@@ -5,7 +5,6 @@
          "../../benchmarks/all.rkt" "../metasketches/imetasketch.rkt"
          "log.rkt"
          (only-in rosette/solver/solution model)
-         rosette/solver/kodkod/kodkod (rename-in rosette/config/log [log-info log-info-r])
          syntax/modresolve racket/runtime-path racket/serialize)
 
 (provide search)
@@ -39,8 +38,6 @@
          #:exchange-costs [exchange-costs #t]
          #:use-structure [use-structure #t]
          #:incremental [incremental #t]
-         #:synthesizer [synthesizer% 'kodkod-incremental%]
-         #:verifier [verifier% 'kodkod%]
          #:verbose [verbosity #f])
   ; record start time and set up logging
   (log-start-time (current-inexact-milliseconds))
@@ -195,8 +192,7 @@
     (define pch (place channel (search-worker channel)))
     (place-channel-put pch `(config ,worker-id ,(log-start-time) ,timeout ,verbosity
                                     ,bw ,bit-widening
-                                    ,exchange-samples ,exchange-costs ,use-structure ,incremental
-                                    ,synthesizer% ,verifier%))
+                                    ,exchange-samples ,exchange-costs ,use-structure ,incremental))
     (place-channel-put pch `(metasketch ,ms-spec))
     (vector-set! workers worker-id pch))
   

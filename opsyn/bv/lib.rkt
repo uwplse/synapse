@@ -10,7 +10,7 @@
 ; with the given constructor.
 ; The constructor must be concrete, since we are using (fast) 
 ; Racket matching instead of (slow) Rosette matching provided 
-; by rosette/lib/reflect/match.
+; by rosette/lib/match.
 (define (instruction->predicate inst)
   (match inst
     [(== bv)      bv?]

@@ -49,7 +49,7 @@
                     #:cost cost 
                     #:minbw minbw)
   ;(parameterize ([current-oracle (oracle)])
-    (define-symbolic* in number? [arity])
+    (define-symbolic* in integer? [arity])
     (imeta ref subset in pre post structure cost minbw));)
   
 
@@ -118,7 +118,7 @@
   
   #:methods gen:sketch
   [(define (metasketch self) (isketch-meta self))
-   (define (programs self [sol (empty-solution)])
+   (define (programs self [sol (sat)])
       (if (zero? (dict-count (model sol)))
           (isketch-program-lazy self)
           (evaluate (isketch-program-lazy self) sol)))
