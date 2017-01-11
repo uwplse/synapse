@@ -73,8 +73,8 @@
     
     (define-values (synthesizer verifier) (values (z3) (z3)))
        
-    (define-values (post samples pool) 
-      (values '() '() '()))
+    (define-values (post samples pool hole-vars) 
+      (values '() '() '() '()))
 
     (define trial -1)
 
@@ -90,6 +90,7 @@
       (let loop ([post+ post+] [samples+ '()])
         (set! trial (add1 trial))
         (add-samples-to-pool! samples+)
+        (add-hole-vars! (symbolics (append post+ post)))
         (define-values (dynamic static) (partition input-dependent? post+))
         
         (unless (empty? dynamic)
@@ -119,7 +120,8 @@
               (call-with-values thread-receive-non-blocking loop)]
              [else ; we have a valid candidate
               (log-cegis [trial] [verify-start-time] "solution verified")
-              (thread-send output (list (current-thread) candidate samples))
+              (define result (concretize candidate hole-vars))
+              (thread-send output (list (current-thread) result samples))
               (call-with-values thread-receive-blocking loop)])]
           [else    ; we are done
            (log-cegis [trial] [synth-start-time] "no solutions")
@@ -166,6 +168,13 @@
         [points+
          (define-values (constrs points) (thread-receive-blocking))
          (values constrs (append points+ points))]))
+
+    (define (add-hole-vars! vars)
+      (for ([var vars])
+        (unless (member var inputs)
+          (set! hole-vars (cons var hole-vars))))
+
+      (set! hole-vars (remove-duplicates hole-vars)))
     
     ; Verifies the given candidate solution, producing unsat if the candidate 
     ; is correct or a counterexample otherwise.
@@ -202,7 +211,12 @@
     ; Pads the given satisfiable solution with default values so that 
     ; each input is bound to a concrete value.
     (define (model->sample m)
-      (sat (for/hash ([in inputs]) 
+      (concretize m inputs))
+
+    ; Pads the given satisfiable solution with default values so that 
+    ; each variable is bound to a concrete value.
+    (define (concretize m variables)
+      (sat (for/hash ([in variables]) 
              (match (m in)
                [(constant _ (bitvector bw))
                 (values in (rosette-bv 0 (bitvector bw)))]
@@ -213,7 +227,7 @@
                [(constant _ (== @boolean?))
                 (values in #f)]
                [val (values in val)]))))
-    
+
     ; Returns true iff p is a satisfiable solution 
     ; that binds inputs to concrete values 
     ; and that satisfies the preconditions.
