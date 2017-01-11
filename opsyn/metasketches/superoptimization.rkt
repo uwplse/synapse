@@ -39,13 +39,15 @@
 (define (superopt∑ 
          #:instructions insts 
          #:maxlength [maxlength +inf.0]
-         #:arity arity   
+         #:arity arity
+         #:input-type [type integer?]
          #:pre [pre void] 
          #:post [post void]
          #:cost-model [cost-model sample-cost-model])
   (check-max-length 'superopt∑ maxlength)
   (imeta 
    #:arity arity
+   #:input-type type
    #:ref (lambda (idx) (??program arity (car idx) insts))
    #:subset (superopt-subset (+ 1 maxlength) insts cost-model)
    #:pre pre

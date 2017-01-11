@@ -24,7 +24,7 @@
 
 (define (test-no-search idx)
  (test-case (format "ris ~a" idx)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define M (dist3-ris #:quality (relaxed 1)))
   (define ref-cost (cost M dist3))
   (printf "~a cost: ~a\n" (object-name dist3) ref-cost)

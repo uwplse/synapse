@@ -3,7 +3,8 @@
 (require "reference.rkt"  
          "../../opsyn/bv/lang.rkt"  
          "../../opsyn/metasketches/superoptimization.rkt"  
-         "../../opsyn/metasketches/cost.rkt")
+         "../../opsyn/metasketches/cost.rkt"
+         (only-in rosette [bveq rosette-bveq]))
 
 (provide hd-d0)
 
@@ -18,13 +19,15 @@
 (define (hd-d0 prog 
                #:finite? [finite? #t] 
                #:cost-model [cost-model constant-cost-model])
-  (define insts (program-instructions prog))  
+  (define insts (program-instructions prog))
   (superopt∑ #:instructions (remove-duplicates (map instruction->type insts))
              #:maxlength (if finite? (length insts) +inf.0)
              #:arity (program-inputs prog)
+             #:input-type (bitvector (current-bitwidth))
              #:pre   (if (eq? prog hd20) (lambda (inputs) (assert (not (= (car inputs) 0)))) void)
              #:post  (lambda (P inputs)
-                       (assert (= (interpret prog inputs) (interpret P inputs))))
+                       (assert (rosette-bveq (interpret prog inputs)
+                                             (interpret P inputs))))
              #:cost-model cost-model))
             
 

@@ -26,7 +26,7 @@
 
 (define (test-hd M i)
  (test-case (format "HD ~a ~a" M i)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (check-true
    (sat?
     (let loop ([sketches (sequence->list (sketches M))][i 1])

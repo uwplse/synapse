@@ -22,7 +22,7 @@
 
 (define (test-qm M s)
  (test-case (format "~a" s)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (check-true
    (sat?
     (let loop ([sketches (sequence->stream (sketches M))])

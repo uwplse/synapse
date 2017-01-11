@@ -23,8 +23,7 @@
 (define (∃solve solver pre ¬post)
   (solver-assert solver pre)
   (solver-assert solver (list ¬post))
-  (solver-check solver)
-  #;(send/handle-breaks solver solve))
+  (solver-check solver))
 
 ; Checks the validity of the formula Pre ⇒ Post, as with verify above.
 ; This procedure runs asynchronously, immediately returning a thread that

@@ -2,7 +2,22 @@
 
 (require "../engine/util.rkt" rosette/lib/match racket/serialize)
 
-(provide (except-out (all-defined-out) define-instruction bool->bv bvscmp bvucmp))
+(require (only-in rosette [bv rosette-bv]
+                  [bveq rosette-bveq] [bvslt rosette-bvslt]
+                  [bvsgt rosette-bvsgt] [bvsle rosette-bvsle]
+                  [bvsge rosette-bvsge] [bvult rosette-bvult]
+                  [bvugt rosette-bvugt] [bvule rosette-bvule]
+                  [bvuge rosette-bvuge] [bvnot rosette-bvnot]
+                  [bvor rosette-bvor] [bvand rosette-bvand]
+                  [bvxor rosette-bvxor] [bvshl rosette-bvshl]
+                  [bvlshr rosette-bvlshr] [bvashr rosette-bvashr]
+                  [bvneg rosette-bvneg] [bvadd rosette-bvadd]
+                  [bvsub rosette-bvsub] [bvmul rosette-bvmul]
+                  [bvudiv rosette-bvudiv] [bvsdiv rosette-bvsdiv]
+                  [bvurem rosette-bvurem] [bvsrem rosette-bvsrem]
+                  [bvsmod rosette-bvsmod]))
+
+(provide (except-out (all-defined-out) define-instruction bool->bv bvcmp bv=0? bv=1? bviszero maybe-int->bv))
 
 ; ------------ instructions ------------ ;
 
@@ -120,62 +135,75 @@
 
 ; ------------ semantics ------------ ;  
 
+(define (maybe-int->bv x)
+  (if (integer? x)
+      (integer->bitvector x (bitvector (current-bitwidth)))
+      x))
+
 ; Interprets the given program on the given list of inputs.
 (define (interpret prog inputs)
   (unless (= (program-inputs prog) (length inputs))
     (error 'interpret "expected ~a inputs, given ~a" (program-inputs prog) inputs))
-  (define insts (program-instructions prog))
-  (define size (+ (length inputs) (length insts)))
-  (define reg (make-vector size))
-  (define (store i v) (vector-set! reg i (finitize v)))
-  (define (load i)
-    (vector-ref reg i))
-  (for ([(in i) (in-indexed inputs)])
-    (store i in))
-  (for ([inst insts] [idx (in-range (length inputs) (vector-length reg))])
-    (match inst
-      [(bv val)       (store idx val)]
-      [(bvnot r1)     (store idx (bitwise-not (load r1)))]
-      [(bvand r1 r2)  (store idx (bitwise-and (load r1) (load r2)))]
-      [(bvor r1 r2)   (store idx (bitwise-ior (load r1) (load r2)))]
-      [(bvxor r1 r2)  (store idx (bitwise-xor (load r1) (load r2)))]
-      [(bvshl r1 r2)  (store idx (bvshl (load r1) (load r2)))]
-      [(bvlshr r1 r2) (store idx (bvlshr (load r1) (load r2)))]
-      [(bvashr r1 r2) (store idx (bvashr (load r1) (load r2)))]
-      [(bvneg r1)     (store idx (- (load r1)))]
-      [(bvadd r1 r2)  (store idx (+ (load r1) (load r2)))]
-      [(bvsub r1 r2)  (store idx (- (load r1) (load r2)))]
-      [(bvmul r1 r2)  (store idx (* (load r1) (load r2)))]
-      [(bvsdiv r1 r2) (store idx (quotient (load r1) (load r2)))]
-      [(bvudiv r1 r2) (store idx (quotient (load r1) (load r2)))]    ; unsound
-      [(bvsrem r1 r2) (store idx (remainder (load r1) (load r2)))]
-      [(bvurem r1 r2) (store idx (remainder (load r1) (load r2)))]   ; unsound
-      [(bveq r1 r2)   (store idx (bvscmp = (load r1) (load r2)))]
-      [(bvredor r1)   (store idx (bitwise-not (bvscmp = (load r1) 0)))]
-      [(bvsle r1 r2)  (store idx (bvscmp <= (load r1) (load r2)))]
-      [(bvslt r1 r2)  (store idx (bvscmp < (load r1) (load r2)))]
-      [(bvule r1 r2)  (store idx (bvucmp <= (load r1) (load r2)))]
-      [(bvult r1 r2)  (store idx (bvucmp < (load r1) (load r2)))]
-      [(bvabs r1)     (store idx (abs (load r1)))]
-      [(bvsqrt r1)    (store idx (sqrt (load r1)))]
-      [(bvmin r1 r2)  (store idx (min (load r1) (load r2)))]
-      [(bvmax r1 r2)  (store idx (max (load r1) (load r2)))]
-      [(ite r1 r2 r3) (store idx (if (= (load r1) 0) (load r3) (load r2)))]
-      [(shr1 r1)      (store idx (bvlshr (load r1) 1))]
-      [(shr4 r1)      (store idx (bvlshr (load r1) 4))]
-      [(shr16 r1)     (store idx (bvlshr (load r1) 16))]
-      [(shl1 r1)      (store idx (bvshl (load r1) 1))]
-      [(if0 r1 r2 r3) (store idx (if (= (load r1) 1) (load r2) (load r3)))]
-      ))
-  (load (- size 1)))
+  (parameterize ([current-bitwidth (match (car inputs)
+                                     [(rosette-bv _ (bitvector bw)) bw]
+                                     [(term _ (bitvector bw)) bw])])
+    (define insts (program-instructions prog))
+    (define size (+ (length inputs) (length insts)))
+    (define reg (make-vector size))
+    (define (store i v) (vector-set! reg i (finitize v)))
+    (define (load i)
+      (vector-ref reg i))
+    (for ([(in i) (in-indexed inputs)])
+      (store i in))
+    (for ([inst insts] [idx (in-range (length inputs) (vector-length reg))])
+      (match inst
+        [(bv val)       (store idx (maybe-int->bv val))]
+        [(bvnot r1)     (store idx (rosette-bvnot (load r1)))]
+        [(bvand r1 r2)  (store idx (rosette-bvand (load r1) (load r2)))]
+        [(bvor r1 r2)   (store idx (rosette-bvor (load r1) (load r2)))]
+        [(bvxor r1 r2)  (store idx (rosette-bvxor (load r1) (load r2)))]
+        [(bvshl r1 r2)  (store idx (rosette-bvshl (load r1) (load r2)))]
+        [(bvlshr r1 r2) (store idx (rosette-bvlshr (load r1) (load r2)))]
+        [(bvashr r1 r2) (store idx (rosette-bvashr (load r1) (load r2)))]
+        [(bvneg r1)     (store idx (rosette-bvneg (load r1)))]
+        [(bvadd r1 r2)  (store idx (rosette-bvadd (load r1) (load r2)))]
+        [(bvsub r1 r2)  (store idx (rosette-bvsub (load r1) (load r2)))]
+        [(bvmul r1 r2)  (store idx (rosette-bvmul (load r1) (load r2)))]
+        [(bvsdiv r1 r2) (store idx (rosette-bvsdiv (load r1) (load r2)))]
+        [(bvudiv r1 r2) (store idx (rosette-bvudiv (load r1) (load r2)))]
+        [(bvsrem r1 r2) (store idx (rosette-bvsrem (load r1) (load r2)))]
+        [(bvurem r1 r2) (store idx (rosette-bvurem (load r1) (load r2)))]
+        [(bveq r1 r2)   (store idx (bvcmp rosette-bveq (load r1) (load r2)))]
+        [(bvredor r1)   (store idx (rosette-bvnot (bviszero (load r1))))]
+        [(bvsle r1 r2)  (store idx (bvcmp rosette-bvsle (load r1) (load r2)))]
+        [(bvslt r1 r2)  (store idx (bvcmp rosette-bvslt (load r1) (load r2)))]
+        [(bvule r1 r2)  (store idx (bvcmp rosette-bvule (load r1) (load r2)))]
+        [(bvult r1 r2)  (store idx (bvcmp rosette-bvult (load r1) (load r2)))]
+        ;[(bvabs r1)     (store idx (abs (load r1)))]
+        ;[(bvsqrt r1)    (store idx (sqrt (load r1)))]
+        ;[(bvmin r1 r2)  (store idx (min (load r1) (load r2)))]
+        ;[(bvmax r1 r2)  (store idx (max (load r1) (load r2)))]
+        [(ite r1 r2 r3) (store idx (if (bv=0? (load r1)) (load r3) (load r2)))]
+        [(shr1 r1)      (store idx (rosette-bvlshr (load r1) 1))]
+        [(shr4 r1)      (store idx (rosette-bvlshr (load r1) 4))]
+        [(shr16 r1)     (store idx (rosette-bvlshr (load r1) 16))]
+        [(shl1 r1)      (store idx (rosette-bvshl (load r1) 1))]
+        [(if0 r1 r2 r3) (store idx (if (bv=1? (load r1)) (load r2) (load r3)))]
+        [_ (error (format "Unknown instruction ~a" inst))]
+        ))
+    (load (- size 1))))
 
 (define (bool->bv v) 
-  (if v 1 0))
+  (integer->bitvector (if v 1 0) (bitvector (current-bitwidth))))
 
-(define (bvscmp bvop x y)
-   (bool->bv (bvop x y)))
+(define (bvcmp pred x y)
+  (bool->bv (pred x y)))
 
-(define (bvucmp bvop x y)
-   (bool->bv (if (equal? (< x 0) (< y 0)) 
-                 (bvop x y) 
-                 (bvop y x))))
+(define (bv=0? v)
+  (rosette-bveq v (rosette-bv 0 (current-bitwidth))))
+
+(define (bv=1? v)
+  (rosette-bveq v (rosette-bv 1 (current-bitwidth))))
+
+(define (bviszero v)
+  (bool->bv (bv=0? v)))

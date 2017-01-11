@@ -40,7 +40,8 @@
 ; * minbw: isketch? -> natural/c takes as input an indexed sketch from M 
 ; and returns the lower bound on the bitwidth necessary for synthesis.  In particular, 
 ; synthesizing the sketch with a lower bitwidth is guaranteed to return unsat.
-(define (imeta-make #:arity arity 
+(define (imeta-make #:arity arity
+                    #:input-type [type integer?]
                     #:ref ref
                     #:subset subset
                     #:pre [pre void] 
@@ -49,7 +50,7 @@
                     #:cost cost 
                     #:minbw minbw)
   ;(parameterize ([current-oracle (oracle)])
-    (define-symbolic* in integer? [arity])
+    (define-symbolic* in type [arity])
     (imeta ref subset in pre post structure cost minbw));)
   
 

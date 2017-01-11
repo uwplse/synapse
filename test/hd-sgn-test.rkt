@@ -23,7 +23,7 @@
 
 (define (test-sgn M dynamic?)
  (test-case (format "hd-sgn ~a" dynamic?)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define-values (prog sol)
     (let loop ([sketches (sequence->stream (sketches M))])
       (define S (stream-first sketches))

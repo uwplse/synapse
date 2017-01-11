@@ -21,7 +21,7 @@
         (custodian-shutdown-all (current-custodian))))))
 
 (define (test-with-search M)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define best-cost +inf.0)
   (define-values (more-sketches? next-sketch)
     (sequence-generate (sketches M best-cost)))

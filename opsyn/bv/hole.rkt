@@ -1,6 +1,6 @@
 #lang s-exp rosette
 
-(require "lang.rkt" rosette/lib/match rosette/lib/angelic)
+(require "lang.rkt" rosette/lib/angelic)
 
 (provide ??instruction ??program break-commutativity-symmetries)
 
@@ -13,9 +13,18 @@
   (define r3 (apply choose* inputs))
   (apply choose* 
          (for/list ([constructor insts])
+           ;; The first time you call (equal? bv bvsub), it returns
+           ;; true for some reason. This also holds for other
+           ;; instructions like bvadd. Every subsequent time it
+           ;; behaves the way you would expect. As a result, if you
+           ;; comment out the line below, everything breaks.
+           ;; The command 'racket benchmarks/run.rkt "(hd-d0 1)"' will
+           ;; work if the line below is present, but fails if you
+           ;; comment it out.
+           (equal? bv constructor)
            (cond [(bv? constructor) constructor] ; baked-in constant
-                 [(equal? bv constructor)           
-                  (local [(define-symbolic* val integer?)] 
+                 [(equal? bv constructor)
+                  (local [(define-symbolic* val (bitvector (current-bitwidth)))] 
                     (bv val))]
                  [(= 1 (procedure-arity constructor)) (constructor r1)]
                  [(= 2 (procedure-arity constructor)) (constructor r1 r2)]

@@ -22,7 +22,7 @@
 
 (define (test-array-search M n)
  (test-case (format "array-search ~a" n)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (check-true
    (sat?
     (let loop ([sketches (sequence->stream (sketches M))])

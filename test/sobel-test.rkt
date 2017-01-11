@@ -30,7 +30,7 @@
   (check-true
    (sat?
     (let loop ([sketches (set->stream Ss)])
-      (unsafe-clear-terms!)
+      (clear-terms!)
       (cond [(stream-empty? sketches) (unsat)]
             [else 
              (define S (stream-first sketches))
@@ -43,7 +43,7 @@
 
 (define (test-no-search sobel-ref name idx)
  (test-case (format "~a ~a" name idx)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define M (sobel-metasketch #:reference sobel-ref #:quality (relaxed 1)))
   (define ref-cost (cost M sobel-ref))
   (printf "~a cost: ~a\n" (object-name sobel-ref) ref-cost)

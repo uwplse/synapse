@@ -23,7 +23,7 @@
 ; Test the correctness of the search over a HD benchmark metasketch.
 (define (test-hd ms hd i [widening #f] [threads 1])
  (test-case (format "hd~a" i)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define M-spec `(,ms (list-ref all-hd-programs ,i)))
   (define prog (search #:metasketch M-spec
                        #:threads threads

@@ -24,7 +24,7 @@
 
 (define (test-no-search idx)
  (test-case (format "bdf ~a" idx)
-  (unsafe-clear-terms!)
+  (clear-terms!)
   (define M (dist3-bdf #:quality (relaxed 1)))
   (define ref-cost (cost M dist3))
   (define Ss (sketches M (cost M dist3)))

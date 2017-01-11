@@ -1,6 +1,7 @@
 #lang racket
 
 (require "eval.rkt" "util.rkt" "log.rkt"
+         (only-in rosette/base/core/bitvector bitvector [bv rosette-bv])
          (only-in rosette/base/core/bool @boolean? ! ||) 
          (only-in rosette/base/core/real @integer? @real?)
          (only-in rosette symbolics type-of constant term? union? current-bitwidth)
@@ -102,7 +103,6 @@
         (log-cegis [trial] "searching for a candidate solution...")
 
         (define synth-start-time (current-inexact-milliseconds))
-        ;(define candidate (send/handle-breaks synthesizer solve cleanup))
         (define candidate (solver-check synthesizer))
         
         (cond
@@ -141,7 +141,6 @@
       (cond 
         [(empty? pool)
          (solver-assert verifier pre)
-         ;(define s (send/handle-breaks verifier solve cleanup))
          (define s (solver-check verifier))
          (solver-clear verifier)
          (when (sat? s)
@@ -180,7 +179,6 @@
             (solver-assert verifier pre)
             (solver-assert verifier (list ¬asserts))
             (begin0
-              ;(send/handle-breaks verifier solve cleanup)
               (solver-check verifier)
               (solver-clear verifier)))))
     
@@ -206,6 +204,8 @@
     (define (model->sample m)
       (sat (for/hash ([in inputs]) 
              (match (m in)
+               [(constant _ (bitvector bw))
+                (values in (rosette-bv 0 (bitvector bw)))]
                [(constant _ (== @integer?))
                 (values in 0)]
                [(constant _ (== @real?))
